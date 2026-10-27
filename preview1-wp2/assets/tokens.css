@@ -1,0 +1,21 @@
+/* WP2 Preview 1 — design tokens. Alternatives A / B / C + light / dark.
+   The Next.js spike can lift these custom properties verbatim into its
+   theme (Tailwind config / CSS variables). Fonts are local stacks: the
+   named families (Inter, Geist, Source Serif 4, JetBrains Mono) render when
+   installed; no webfont is downloaded or hotlinked (zero-budget, repo-lean). */
+:root {
+  --font-ui: "Inter", "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-read: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius: 12px;
+  --measure: 68ch;
+}
+/* Alternative A (preview default) */
+html[data-variant="a"] { --navy: #10233f; --blue: #2563eb; --teal: #0d9488; --canvas: #f8fafc; --surface: #ffffff; --text: #1e293b; --muted: #475569; --line: #cbd5e1; --gold: #b45309; }
+html[data-variant="a"][data-mode="dark"] { --navy: #0b1526; --blue: #60a5fa; --teal: #2dd4bf; --canvas: #0b1526; --surface: #132238; --text: #e2e8f0; --muted: #94a3b8; --line: #334155; --gold: #d97706; }
+/* Alternative B — V1 evolution: dark V1 header, paper gradient, V1 teal */
+html[data-variant="b"] { --navy: #0c2030; --blue: #175d9c; --teal: #075f70; --canvas: #fbfaf5; --surface: #fffefa; --text: #1e293b; --muted: #475569; --line: #ddd6c4; --gold: #c28d3e; }
+html[data-variant="b"][data-mode="dark"] { --navy: #0c2030; --blue: #7fb3dd; --teal: #2aa5a0; --canvas: #0c2030; --surface: #122e42; --text: #e7eee6; --muted: #9db5cb; --line: #2a4a5e; --gold: #c28d3e; }
+/* Alternative C — editorial paper, serif-forward */
+html[data-variant="c"] { --navy: #1f2937; --blue: #1d4ed8; --teal: #0f766e; --canvas: #fdfbf7; --surface: #fffefa; --text: #292524; --muted: #57534e; --line: #e7e5e4; --gold: #92400e; }
+html[data-variant="c"][data-mode="dark"] { --navy: #1c1917; --blue: #93c5fd; --teal: #5eead4; --canvas: #1c1917; --surface: #292524; --text: #e7e5e4; --muted: #a8a29e; --line: #44403c; --gold: #d6a35c; }
