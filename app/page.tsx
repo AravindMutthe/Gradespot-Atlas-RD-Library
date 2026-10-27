@@ -1,91 +1,72 @@
 import Link from "next/link";
-import { V1_SECTIONS, V1_META } from "@/components/atlas-v1-data";
+import { ATLAS_V2_CHAPTERS, ATLAS_V2_RELEASE } from "@/lib/atlas-v2/chapters";
 
-function blurb(sec: (typeof V1_SECTIONS)[number]): string {
-  for (const b of sec.blocks) {
-    if (b.paras.length > 0) return b.paras[0].slice(0, 170);
-    for (const s of b.subs) {
-      if (s.paras.length > 0) return s.paras[0].slice(0, 170);
-    }
-  }
-  return "";
-}
+// Homepage per the DECIDED hero lockup (DES-02 §7.2, DES-03 §3):
+// compact brand in the header (see layout); H1 is the Atlas name only;
+// positioning line directly beneath as real HTML text (not a second H1);
+// supporting sentence is DRAFT copy and is labelled as such.
+const DISCOVERY: { href: string; title: string; text: string }[] = [
+  {
+    href: "/explore",
+    title: "Explore by Topic",
+    text: "Concepts and curated collections across the library.",
+  },
+  {
+    href: "/explore",
+    title: "Explore by Industry",
+    text: "Technology connected with real-world sectors, inside Explore.",
+  },
+  {
+    href: "/library",
+    title: "Technical Library",
+    text: "The canonical chapter collection, grouped and filterable.",
+  },
+  {
+    href: "/learning-paths",
+    title: "Learning Paths",
+    text: "Structured cross-domain journeys through real chapters.",
+  },
+];
 
 export default function Home() {
-  const intro = V1_SECTIONS[0];
   return (
     <>
-      <p className="eyebrow">Hybrid edition · editorial reading + engineering diagrams</p>
-      <h1>From human communication to interconnected digital systems.</h1>
-      <p className="lead">
-        85 bundled handwritten source images · 15 editorial chapters ·
-        offline-first technical knowledge atlas — now as its own website,
-        in the V1 design, not inside the portfolio.
+      <p className="eyebrow">Cross-industry technology and economic knowledge</p>
+      <h1 className="hero-h1">Aravind Systems Atlas</h1>
+      <p className="positioning">
+        Professional Cross-Industry Technology and Economic Knowledge Hub.
       </p>
-      <div className="hero">
-        <h2 style={{ marginTop: 0 }}>🧭 Two connected learning paths</h2>
-        <p>Read as a story, inspect as an engineer.</p>
-        <p>
-          <b>Historical &amp; founder path:</b> communication needs →
-          standards and governance → global supply chains → industrial
-          adoption → leadership and business models.
-        </p>
-        <p>
-          <b>Career &amp; systems path:</b> silicon and NICs → Linux kernel
-          and network stack → cloud infrastructure → operational scheduling
-          and reliability.
-        </p>
-        <div className="atlas-tabs">
-          <Link href={`/${V1_SECTIONS[1].slug}`}>📜 Begin the history</Link>
-          <Link href={`/${V1_SECTIONS[3].slug}`}>⚙️ Inspect a technical system</Link>
-          <Link href="/source-photographs">📚 Browse every original scan</Link>
-        </div>
+      <p className="description">
+        Explore how computing systems, infrastructure, businesses and industries connect across the
+        global digital economy.
+        <span className="draft-note">Draft wording</span>
+      </p>
+      <div className="hero-actions">
+        <Link className="btn" href="/explore">
+          Explore Knowledge
+        </Link>
+        <Link className="btn-secondary" href="/library">
+          Browse Library
+        </Link>
       </div>
-      <div className="panel verify">
-        <span className="tag">Honesty note — from the V1 manifest itself</span>
-        <p>
-          V1 states it is <b>not</b> a certification that every prior
-          conversation was recovered verbatim or every historical correction
-          audited. The Research Edition adds: research validation remains in
-          progress. Those qualifiers stay attached here.
-        </p>
-      </div>
-      <div className="panel enhance">
-        <span className="tag">🔬 Research &amp; Strategy Edition</span>
-        <p>
-          The same 29 sections with a different introduction: architecture of
-          power, markets &amp; technology; different systems, recurring
-          problems; power is not a metaphor for a CPU; research pathways.
-          Read it on the introduction page.
-        </p>
-        <p>
-          <Link className="btn" href="/from-human-communication-to-interconnected-digital-systems#research-edition">
-            Read the research introduction →
-          </Link>
-        </p>
-      </div>
-      <h2>Choose a chapter</h2>
+      <h2>Discover the Atlas</h2>
       <div className="grid">
-        {V1_SECTIONS.map((sec, i) => (
-          <Link key={sec.slug} href={`/${sec.slug}`} className="card">
-            <span className="tag">
-              Section {String(i + 1).padStart(2, "0")} · {sec.imgs} original images
-            </span>
-            <h3 style={{ marginTop: 8 }}>{sec.title}</h3>
-            <p>{blurb(sec)}</p>
+        {DISCOVERY.map((d) => (
+          <Link key={d.title} href={d.href} className="card">
+            <h3>{d.title}</h3>
+            <p>{d.text}</p>
           </Link>
         ))}
       </div>
-      <div className="orig-banner">
-        Original images: the source books embed {V1_META.embeddedImages}{" "}
-        original images. They are not copied into this site&apos;s repository;
-        the original 110&nbsp;MB HTML files remain the source of truth in the
-        Atlas archive.
+      <div className="panel verify">
+        <span className="tag">Honesty note</span>
+        <p>
+          {ATLAS_V2_CHAPTERS.length} chapters · release {ATLAS_V2_RELEASE.contentRelease} ·
+          version {ATLAS_V2_RELEASE.version}. Recovered historical exports are partial
+          reconstructions, not verbatim transcripts. Nothing here is presented as a certification
+          that every prior conversation was recovered verbatim.
+        </p>
       </div>
-      <footer>
-        Aravind Systems Knowledge Atlas V1 · {V1_META.sections} sections ·{" "}
-        Hybrid &amp; Research Editions · Built with Next.js
-      </footer>
     </>
   );
 }
