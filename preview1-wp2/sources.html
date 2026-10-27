@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" data-variant="a" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sources &amp; provenance — Aravind Systems Atlas</title>
+<meta name="description" content="Provenance, source editions and release information for the Aravind Systems Atlas research edition.">
+<link rel="canonical" href="https://aravind-systems-atlas.vercel.app/sources.html">
+<meta property="og:title" content="Sources &amp; provenance — Aravind Systems Atlas">
+<meta property="og:description" content="Provenance, source editions and release information for the Aravind Systems Atlas research edition.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="index.html" aria-label="Aravind Systems Atlas home"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-text">Aravind Systems Atlas</span></a>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation">Menu</button>
+<nav id="site-nav" class="site-nav" aria-label="Primary"><a href="index.html">Home</a><a href="library.html">Library</a><a href="learning-paths.html">Learning Paths</a><a href="explorer.html">System Explorer</a><a href="sources.html" aria-current="page">Sources</a><a href="about.html">About</a></nav>
+</div>
+<div class="theme-bar" role="group" aria-label="Design preview controls">
+<label>Design preview: <select id="variant-select" aria-label="Design alternative">
+<option value="a">Alternative A — current default</option>
+<option value="b">Alternative B — V1 evolution</option>
+<option value="c">Alternative C — editorial paper</option>
+</select></label>
+<button id="mode-toggle" type="button" aria-pressed="false">Dark mode</button>
+<a href="themes.html">Compare A / B / C</a>
+<p class="theme-note">Final theme is the owner's call. This switcher is a Preview 1 comparison aid only.</p>
+</div>
+</header>
+<main id="main">
+
+<section><h1>Sources &amp; provenance</h1>
+<p class="release-badge" role="status">Research edition · Release <code>v1-consolidated-001</code> · Version <code>1.0.0-continuing</code> · 57 chapters · 136 images · 22 diagrams · 48 tables · SHA-256 <code>970489efd3899d29</code></p>
+<h2>Source editions</h2>
+<ul>
+<li><strong>V1 Research Edition</strong> — baseline source for the consolidated master (733 baseline paragraphs kept).</li>
+<li><strong>Industry Evolution Edition</strong> — added 283 industry paragraphs; also the source of industry-only chapters.</li>
+</ul>
+<p>Per-chapter provenance is shown on every card in the <a href="library.html">Library</a>. A chapter sourced from only one edition says so; a chapter with no recorded source would say “Source: not recorded”.</p>
+<h2>Original notes</h2>
+<p>Original-note scans (136 unique images in the release) are preserved as submitted. The three scans below are local copies from “From silicon to a working NIC”, copied byte-identical from the content archive (matching SHA-256 and file size against the archive files).</p>
+<div class="gallery">
+<figure><img src="assets/original-notes/img-545c52f27e9f9afd.jpg" alt="Original handwritten research note, page from the silicon-to-NIC chapter" loading="lazy"><figcaption>Original note — silicon to a working NIC</figcaption></figure>
+<figure><img src="assets/original-notes/img-22da110ed84f5867.jpg" alt="Original handwritten research note, page from the silicon-to-NIC chapter" loading="lazy"><figcaption>Original note — silicon to a working NIC</figcaption></figure>
+<figure><img src="assets/original-notes/img-bfff63732d9e2579.jpg" alt="Original handwritten research note, page from the silicon-to-NIC chapter" loading="lazy"><figcaption>Original note — silicon to a working NIC</figcaption></figure>
+</div>
+<p class="flag"><strong>Provenance caveat found during this build (flagged, not hidden):</strong> for these three files, the SHA-256 recorded in the chapter JSON's <code>original_notes</code> entries does not match the file's actual SHA-256 (the files themselves match the archive byte-for-byte). The chapter JSON's recorded hashes for these entries should be re-checked by the content audit before any checksum claim is published. No checksum is claimed for these three images on this page.</p>
+<h2>What is excluded, and why</h2>
+<p>The release manifest records 3 navigation pages and 22 duplicate-title teasers excluded from the 57-chapter count. They are not chapters and are not counted. Two privacy-excluded items and four former-employer records never appear anywhere on this site, by standing rule.</p>
+<h2>Reference designs consulted (read-only)</h2>
+<p>Prototype designs in the phone Atlas archive were consulted for structure and conventions only — blueprint and editorial two-design prototypes (paper tones, provenance labels, step flows, sticky header) and the hybrid-final prototype (originals preserved as-is, editorial vs AI labels). No prototype file was copied into this site, and no prototype claim (e.g. “20 original scans”, “AI-authored enhancements”) is carried over as an Atlas fact.</p>
+</section>
+
+</main>
+<footer class="site-footer">
+<p><strong>Aravind Systems Atlas</strong> — research edition. Content release <code>v1-consolidated-001</code> · version <code>1.0.0-continuing</code> · 57 chapters · 136 images · 22 diagrams · 48 tables · content SHA-256 <code>970489efd3899d29</code>.</p>
+<p>Preview 1 (WP2): homepage + global navigation + design references. Full chapter reader, full search and Labs are later work packages. Labs is planned and has no destination in this preview; AI is not in the navigation.</p>
+<p><a href="index.html">Home</a> · <a href="library.html">Library</a> · <a href="learning-paths.html">Learning Paths</a> · <a href="explorer.html">System Explorer</a> · <a href="sources.html">Sources</a> · <a href="about.html">About</a> · <a href="themes.html">Design alternatives</a></p>
+</footer>
+</body>
+</html>
