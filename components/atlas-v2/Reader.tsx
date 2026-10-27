@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { AtlasV2Chapter } from "@/lib/atlas-v2/chapters";
 import styles from "./reader.module.css";
@@ -27,7 +27,7 @@ function writeJson(key: string, value: unknown): boolean {
 
 export default function Reader({ chapter, prev, next, related, all, proposedDomain, sourceDomain, flagged }:
   { chapter: AtlasV2Chapter; prev: ChapterLite | null; next: ChapterLite | null; related: RelatedResolved[]; all: ChapterLite[]; proposedDomain: string; sourceDomain: string; flagged: boolean; }) {
-  const [mode, setMode] = useState<"explore" | "research">("explore");
+  const [mode, setMode] = useState<"learn" | "reference">("learn");
   const [fontStep, setFontStep] = useState(1);
   const [lineHeight, setLineHeight] = useState<"comfortable" | "compact">("comfortable");
   const [fontFamily, setFontFamily] = useState<"serif" | "sans">("serif");
@@ -37,11 +37,25 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
   const [progress, setProgress] = useState(0);
   const [bookmarks, setBookmarks] = useState<{ slug: string; anchor: string; heading: string }[]>([]);
   const [storageFailed, setStorageFailed] = useState(false);
+  const pendingAnchor = useRef<string>("");
+  const handleMode = (m: "learn" | "reference") => {
+    // Record the section at the top of the viewport so the mode switch can
+    // return to it: section ids are stable across modes (DES-04).
+    const secs = Array.from(document.querySelectorAll("section[id]"));
+    let current = "";
+    for (const s of secs) {
+      if ((s as HTMLElement).getBoundingClientRect().top <= 120) current = s.id;
+    }
+    pendingAnchor.current = current;
+    setMode(m);
+  };
 
   useEffect(() => {
     const prefs = readJson("atlas-v2-reader-prefs") as Record<string, unknown> | null;
     if (prefs) {
-      if (prefs.mode === "explore" || prefs.mode === "research") setMode(prefs.mode);
+      if (prefs.mode === "explore") setMode("learn");
+      else if (prefs.mode === "research") setMode("reference");
+      else if (prefs.mode === "learn" || prefs.mode === "reference") setMode(prefs.mode);
       if (typeof prefs.fontStep === "number") setFontStep(prefs.fontStep);
       if (prefs.lineHeight === "compact" || prefs.lineHeight === "comfortable") setLineHeight(prefs.lineHeight);
       if (prefs.fontFamily === "sans" || prefs.fontFamily === "serif") setFontFamily(prefs.fontFamily);
@@ -64,6 +78,14 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
   useEffect(() => {
     if (!writeJson("atlas-v2-reader-prefs", { mode, fontStep, lineHeight, fontFamily, dark })) setStorageFailed(true);
   }, [mode, fontStep, lineHeight, fontFamily, dark]);
+
+  useEffect(() => {
+    if (pendingAnchor.current) {
+      const el = document.getElementById(pendingAnchor.current);
+      if (el) el.scrollIntoView({ block: "start" });
+      pendingAnchor.current = "";
+    }
+  }, [mode]);
 
   const toc = useMemo(() => chapter.blocks.filter((b) => b.h2).map((b, i) => ({ id: anchorId(b.h2, i), h2: b.h2 })), [chapter]);
   const toggleBookmark = (anchor: string, heading: string) => {
@@ -97,36 +119,28 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
           </div>
         ) : null}
         {shown.map((p, j) => renderPara(p, j))}
-        {technical.length > 0 && mode === "explore" ? (
+        {technical.length > 0 && mode === "learn" ? (
           <details key={expandAll ? "open" : "closed"} open={expandAll} className={styles.details}>
             <summary>Technical depth — {technical.length} paragraph{technical.length === 1 ? "" : "s"} (editorial expansion, not manuscript text)</summary>
             {tech("t")}
           </details>
         ) : null}
-        {technical.length > 0 && mode === "research" ? tech("r") : null}
+        {technical.length > 0 && mode === "reference" ? tech("r") : null}
         {b.lists.map((list, j) => (
           <ul key={j}>{list.map((item, k) => <li key={k}>{item}</li>)}</ul>
         ))}
       </section>
     );
   };
-  const extraSection = (id: string, title: string, children: React.ReactNode) => mode === "explore" ? (
-    <section id={id}><details key={expandAll ? "open" : "closed"} open={expandAll} className={styles.details}><summary>{title} — expand to read (also fully shown in Research &amp; Engineering mode)</summary>{children}</details></section>
+  const extraSection = (id: string, title: string, children: React.ReactNode) => mode === "learn" ? (
+    <section id={id}><details key={expandAll ? "open" : "closed"} open={expandAll} className={styles.details}><summary>{title} — expand to read (also fully shown in Technical Reference mode)</summary>{children}</details></section>
   ) : (<section id={id}><h2>{title}</h2>{children}</section>);
 
   return (
     <div className={wrapClass}>
       <div className={styles.progress} role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="Reading progress"><div style={{ width: `${progress}%` }} /></div>
-      <nav className={styles.topbar} aria-label="Atlas navigation">
-        <Link href="/">Atlas home</Link>
-        <Link href="/library">Library</Link>
-        <Link href="/search">Search</Link>
-        <button type="button" className={`${styles.btn} ${styles.drawerBtn}`} aria-expanded={drawer} aria-controls="atlas-drawer" onClick={() => setDrawer(true)}>☰ Chapters</button>
-        <form action="/search" method="get" role="search" style={{ marginLeft: "auto", display: "flex", gap: 6 }}>
-          <label htmlFor="reader-search" className="sr-only" style={{ position: "absolute", left: "-9999px" }}>Search the Atlas</label>
-          <input id="reader-search" name="q" type="search" placeholder="Search the Atlas…" style={{ padding: "6px 10px", borderRadius: 6, border: "1px solid #94a3b8" }} />
-          <button type="submit" className={styles.btn}>Search</button>
-        </form>
+      <nav className={styles.topbar} aria-label="Chapter navigation">
+        <button type="button" className={`${styles.btn} ${styles.drawerBtn}`} aria-expanded={drawer} aria-controls="atlas-drawer" onClick={() => setDrawer(true)}>Chapters</button>
       </nav>
       {drawer ? (<>
         <button type="button" className={styles.drawerBackdrop} aria-label="Close chapter drawer" onClick={() => setDrawer(false)} />
@@ -137,12 +151,12 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
         </div>
       </>) : null}
       {storageFailed ? <p className={styles.notice} role="status">Browser storage is unavailable, so bookmarks and font settings will last only for this visit. Reading itself is unaffected.</p> : null}
-      <p className={styles.crumbs}><Link href="/">Home</Link> / <Link href="/library">Library</Link> / <Link href={`/library?domain=${encodeURIComponent(proposedDomain)}`}>{proposedDomain}</Link> / {chapter.title}</p>
+      <p className={styles.crumbs}><Link href="/">Home</Link> / <Link href="/library">Library</Link> / {chapter.title}</p>
       <div className={styles.controls} aria-label="Reader controls">
         <label htmlFor="mode">Reading mode</label>
-        <select id="mode" value={mode} onChange={(e) => setMode(e.target.value as "explore" | "research")}>
-          <option value="explore">Explore &amp; Learn — approachable, technical depth expandable</option>
-          <option value="research">Research &amp; Engineering — full technical depth</option>
+        <select id="mode" value={mode} onChange={(e) => handleMode(e.target.value as "learn" | "reference")}>
+          <option value="learn">Explore &amp; Learn — approachable, technical depth expandable</option>
+          <option value="reference">Technical Reference — full technical depth</option>
         </select>
         <label htmlFor="font-size">Text size</label>
         <select id="font-size" value={fontStep} onChange={(e) => setFontStep(Number(e.target.value))}>
@@ -157,7 +171,7 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
           <option value="serif">Serif</option><option value="sans">Sans-serif</option>
         </select>
         <button type="button" className={styles.btn} onClick={() => setDark(!dark)} aria-pressed={dark}>{dark ? "☀ Light theme" : "🌙 Dark theme"}</button>
-        {mode === "explore" ? <button type="button" className={styles.btn} onClick={() => setExpandAll(!expandAll)}>{expandAll ? "Collapse technical detail" : "Expand all technical detail"}</button> : null}
+        {mode === "learn" ? <button type="button" className={styles.btn} onClick={() => setExpandAll(!expandAll)}>{expandAll ? "Collapse technical detail" : "Expand all technical detail"}</button> : null}
         <span className={styles.progressText} aria-live="polite">{progress}% read</span>
       </div>
       <div className={styles.layout}>
@@ -168,10 +182,10 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
         <article className={styles.article} style={{ fontSize, lineHeight: lineHeight === "comfortable" ? 1.75 : 1.5 }}>
           <p className={styles.meta}>Content release v1-consolidated-001 · version 1.0.0-continuing</p>
           <h1>{chapter.title}</h1>
-          <p className={styles.lead}>Proposed domain: {proposedDomain}{flagged ? " (flagged for owner review)" : ""} · Source domain: {sourceDomain} · {chapter.paragraphCount} paragraphs · {chapter.imageCount} images · {chapter.tables.length} tables · {chapter.diagrams.length} diagrams</p>
+          <p className={styles.lead}>Proposed grouping: {proposedDomain} (proposed, pending reconciliation){flagged ? " · flagged for review" : ""} · Source domain: {sourceDomain} · {chapter.paragraphCount} paragraphs · {chapter.imageCount} images · {chapter.tables.length} tables · {chapter.diagrams.length} diagrams</p>
           <p className={styles.meta}>Sources: {chapter.sources.length > 0 ? chapter.sources.join(" · ") : "Not recorded in the master (shown as missing, not guessed)."}</p>
           <div className={styles.callout}>
-            <strong>How to read this chapter.</strong> Paragraphs beginning “From the original pages” paraphrase the handwritten sources. Paragraphs beginning “Technical expansion and corrections” are editorial explanation, not manuscript text. In Explore &amp; Learn mode the editorial technical paragraphs sit inside “Technical depth” disclosures — expand them any time; nothing is hidden permanently. Research &amp; Engineering mode shows everything, including sources, diagrams and original evidence, without collapsing.
+            <strong>How to read this chapter.</strong> Paragraphs beginning “From the original pages” paraphrase the handwritten sources. Paragraphs beginning “Technical expansion and corrections” are editorial explanation, not manuscript text. In Explore &amp; Learn mode the editorial technical paragraphs sit inside “Technical depth” disclosures — expand them any time; nothing is hidden permanently. Technical Reference mode shows everything, including sources, diagrams and original evidence, without collapsing.
           </div>
           {chapter.blocks.map(renderBlock)}
           {chapter.diagrams.length > 0 ? extraSection("diagrams", "Diagrams", chapter.diagrams.map((g, i) => (

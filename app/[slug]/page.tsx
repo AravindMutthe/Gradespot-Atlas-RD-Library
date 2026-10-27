@@ -14,6 +14,13 @@ export function generateStaticParams() {
   return [...slugs].map((slug) => ({ slug }));
 }
 
+// Editorial description written for the Step 1 reader chapter only. The
+// remaining 56 chapters still use auto-sliced first-paragraph descriptions
+// (a known DES-03 gap: descriptions must be editorial, not auto-sliced).
+const NIC_EDITORIAL_DESCRIPTION =
+  "How a network interface card moves from silicon to a working device: PCIe discovery, driver binding, kernel interfaces, packet transfer and practical troubleshooting.";
+const BASE = process.env.ATLAS_BASE_URL ?? "https://aravind-systems-atlas.vercel.app";
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const v2 = ATLAS_V2_BY_SLUG[slug];
@@ -21,8 +28,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const first = v2.blocks.flatMap((b) => b.paras)[0] ?? "";
     return {
       title: `${v2.title} — Aravind Systems Atlas`,
-      description: first.slice(0, 160),
-      alternates: { canonical: `https://aravind-systems-atlas.vercel.app/${slug}` },
+      description: slug === "from-silicon-to-a-working-nic" ? NIC_EDITORIAL_DESCRIPTION : first.slice(0, 160),
+      alternates: { canonical: `${BASE}/${slug}/` },
     };
   }
   const sec = V1_SECTIONS.find((s) => s.slug === slug);
