@@ -1,0 +1,37 @@
+{
+  "cleanUrls": false,
+  "rewrites": [
+    {
+      "source": "/index",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/library",
+      "destination": "/library.html"
+    },
+    {
+      "source": "/learning-paths",
+      "destination": "/learning-paths.html"
+    },
+    {
+      "source": "/explorer",
+      "destination": "/explorer.html"
+    },
+    {
+      "source": "/sources",
+      "destination": "/sources.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/search",
+      "destination": "/search.html"
+    },
+    {
+      "source": "/themes",
+      "destination": "/themes.html"
+    }
+  ]
+}
