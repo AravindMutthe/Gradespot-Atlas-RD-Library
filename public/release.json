@@ -1,0 +1,166 @@
+{
+  "atlas": "Aravind Systems Atlas",
+  "version": "1.0.0-continuing",
+  "contentRelease": "v1-consolidated-001",
+  "status": "research-edition",
+  "chapters": 57,
+  "unique_images": 136,
+  "baseline_paragraphs_kept": 733,
+  "industry_paragraphs_added": 283,
+  "duplicate_paragraphs_dropped": 14,
+  "excluded_instances": [
+    {
+      "title": "Knowledge library",
+      "index": 1,
+      "substantive_paras": 1,
+      "reason": "navigation page"
+    },
+    {
+      "title": "Search the Atlas",
+      "index": 3,
+      "substantive_paras": 0,
+      "reason": "navigation page"
+    },
+    {
+      "title": "Source archive",
+      "index": 32,
+      "substantive_paras": 1,
+      "reason": "navigation page"
+    },
+    {
+      "title": "Communication, trade and the origins of networks",
+      "index": 33,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Institutions, standards and global supply chains",
+      "index": 34,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Technology leadership and business models",
+      "index": 35,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Resource scheduling and operational systems",
+      "index": 36,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Governance and technical operating systems",
+      "index": 37,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Evolution of human–computer interfaces",
+      "index": 38,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Electrical signals and semiconductor foundations",
+      "index": 39,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Processors, instruction sets and programmable logic",
+      "index": 41,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Memory, storage and motherboard architecture",
+      "index": 42,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Network interface cards: silicon to connectivity",
+      "index": 44,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Embedded systems, switching and cloud infrastructure",
+      "index": 45,
+      "substantive_paras": 2,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Physical enterprise networks and Kubernetes",
+      "index": 46,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Linux datapaths and virtual networking",
+      "index": 47,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Memory management, NUMA and persistent data",
+      "index": 48,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Computer architecture and distributed systems",
+      "index": 49,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Runtime tuning and distributed design",
+      "index": 50,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Processes, execution, backup and archives",
+      "index": 51,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Artifact repositories, buses and firmware",
+      "index": 54,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Artifact delivery, OCI and deployment boundaries",
+      "index": 55,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Virtual machine deployment and artifact distribution",
+      "index": 56,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Linux identity, data states and Sterling deployment",
+      "index": 57,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    },
+    {
+      "title": "Historical networks, standards and AI-era systems",
+      "index": 59,
+      "substantive_paras": 1,
+      "reason": "duplicate-title teaser"
+    }
+  ],
+  "content_sha256": "970489efd3899d29",
+  "diagrams": 22,
+  "tables": 48
+}

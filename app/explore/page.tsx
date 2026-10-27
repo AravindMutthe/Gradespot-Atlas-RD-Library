@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+const BASE = process.env.ATLAS_BASE_URL ?? "https://aravind-systems-atlas.vercel.app";
 import Link from "next/link";
 import journeyData from "@/lib/preview3/explorer-nic-journey.json";
 import chapterTitles from "@/lib/preview3/chapter-titles.json";
@@ -8,6 +10,7 @@ export const metadata: Metadata = {
   title: "System Explorer: NIC packet path — Aravind Systems Atlas",
   description:
     "System Explorer: the NIC packet path end-to-end, from PCIe discovery to packet transfer, grounded in the NIC chapter.",
+  alternates: { canonical: `${BASE}/explore/` },
 };
 
 const TITLES = chapterTitles as Record<string, string>;

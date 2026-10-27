@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+const BASE = process.env.ATLAS_BASE_URL ?? "https://aravind-systems-atlas.vercel.app";
+
+export const metadata: Metadata = {
+  alternates: { canonical: `${BASE}/` },
+};
 import { ATLAS_V2_CHAPTERS, ATLAS_V2_RELEASE } from "@/lib/atlas-v2/chapters";
 
 // Homepage per the DECIDED hero lockup (DES-02 §7.2, DES-03 §3):

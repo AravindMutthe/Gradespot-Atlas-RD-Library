@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+const BASE = process.env.ATLAS_BASE_URL ?? "https://aravind-systems-atlas.vercel.app";
 import Link from "next/link";
 import pathsData from "@/lib/preview3/learning-paths.json";
 import chapterTitles from "@/lib/preview3/chapter-titles.json";
@@ -7,6 +9,7 @@ export const metadata: Metadata = {
   title: "Learning Paths — Aravind Systems Atlas",
   description:
     "Five starter learning paths sequencing real chapters of the Aravind Systems Atlas only.",
+  alternates: { canonical: `${BASE}/learning-paths/` },
 };
 
 type Step = { slug: string; why: string };
@@ -18,7 +21,7 @@ export default function LearningPathsPage() {
   const paths = pathsData.paths as Path[];
   return (
     <>
-      <p className="eyebrow">Preview 3 · WP6 · Release v1-consolidated-001</p>
+      <p className="eyebrow">Release v1-consolidated-001</p>
       <h1>Choose your learning path</h1>
       <p className="lead">
         Five starter paths. Every step is a real chapter from the 57-chapter

@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const BASE = process.env.ATLAS_BASE_URL ?? "https://aravind-systems-atlas.vercel.app";
+
 export const metadata: Metadata = {
   title: "About — Aravind Systems Atlas",
   description:
     "About the Aravind Systems Atlas: purpose, methodology, release information and what this research edition is not.",
+  alternates: { canonical: `${BASE}/about/` },
 };
 
 export default function AboutPage() {
   return (
     <>
-      <p className="eyebrow">Preview 3 · WP7 · Release v1-consolidated-001</p>
+      <p className="eyebrow">Release v1-consolidated-001</p>
       <h1>About the Atlas</h1>
+      <p className="positioning">
+        Professional Cross-Industry Technology and Economic Knowledge Hub.
+      </p>
       <p className="lead">
         A research library built from one person&apos;s handwritten systems
         notes, preserved first and explained second.
@@ -22,9 +28,14 @@ export default function AboutPage() {
           The Aravind Systems Atlas is a 57-chapter research library covering
           computing and hardware, networks and infrastructure, institutions
           and markets, systems evolution, and industrial and business
-          networks. Its source is a set of handwritten notebook pages,
-          preserved as scans, plus editorial synthesis that organizes those
-          notes into readable chapters.
+          networks. Its source is a set of handwritten notebook pages, plus
+          editorial synthesis that organizes those notes into readable
+          chapters. Chapter text is preserved and verified against the
+          consolidated master (57 of 57 chapters in the latest migration
+          check). Original-note images are referenced by each chapter but
+          are not yet published in this build — the original-note assets
+          step is still pending, so note galleries currently resolve to no
+          image files.
         </p>
       </section>
       <section className="panel">
@@ -38,7 +49,7 @@ export default function AboutPage() {
           <li>
             Not a second copy of anything else: this standalone site is the
             canonical full library. The portfolio, if it links here at all,
-            links in — it does not duplicate chapters.
+            links in as a curated gateway — it does not duplicate chapters.
           </li>
           <li>
             Not an AI tutor and not a labs product: there is no AI in the
@@ -50,19 +61,24 @@ export default function AboutPage() {
       <section className="panel">
         <h2>Methodology</h2>
         <p>
-          Preservation first: original scans are reproduced unchanged.
-          Explanation second: redraws, syntheses and corrections are labelled
+          Preservation first: chapter text is preserved exactly and verified;
+          explanation second: redraws, syntheses and corrections are labelled
           as added material, never silently merged into the original wording.
           Consolidation: the 57 chapters reconcile a research-edition baseline
           (733 paragraphs kept) with industry-evolution material (283
-          paragraphs added), dropping 14 duplicate paragraphs. The full rules
-          live on the <Link href="/sources">Sources</Link> page.
+          paragraphs added), dropping 14 duplicate paragraphs (release
+          manifest v1-consolidated-001). One inventory discrepancy remains
+          explicitly unresolved: the consolidated chapter data totals 1,040
+          paragraphs against the release accounting of 733 + 283 = 1,016.
+          Neither figure is silently chosen; the migration preserves the
+          chapter data exactly. The full rules live on the{" "}
+          <Link href="/sources">Sources</Link> page.
         </p>
       </section>
       <section className="panel">
         <h2>Timelines — status note</h2>
         <p>
-          Timelines are represented in the design system only in this preview.
+          Timelines are represented in the design system only in this edition.
           A full interactive timeline is a later batch. No timeline page is
           advertised here as completed.
         </p>
