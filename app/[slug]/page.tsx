@@ -2,13 +2,29 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { V1_SECTIONS, type V1Block } from "@/components/atlas-v1-data";
+// Atlas V2 (Preview 2, WP3–WP5): the 57 consolidated chapters take precedence
+// on their verbatim slugs; any slug not in the V2 set falls back to V1 below.
+import { ATLAS_V2_BY_SLUG, ATLAS_V2_CHAPTERS } from "@/lib/atlas-v2/chapters";
+import { ATLAS_V2_DOMAIN_MAP } from "@/lib/atlas-v2/domains";
+import { ATLAS_V2_RELATED } from "@/lib/atlas-v2/related";
+import Reader, { type ChapterLite, type RelatedResolved } from "@/components/atlas-v2/Reader";
 
 export function generateStaticParams() {
-  return V1_SECTIONS.map((s) => ({ slug: s.slug }));
+  const slugs = new Set<string>([...ATLAS_V2_CHAPTERS.map((c) => c.slug), ...V1_SECTIONS.map((s) => s.slug)]);
+  return [...slugs].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
+  const v2 = ATLAS_V2_BY_SLUG[slug];
+  if (v2) {
+    const first = v2.blocks.flatMap((b) => b.paras)[0] ?? "";
+    return {
+      title: `${v2.title} — Aravind Systems Atlas`,
+      description: first.slice(0, 160),
+      alternates: { canonical: `https://aravind-systems-atlas.vercel.app/${slug}` },
+    };
+  }
   const sec = V1_SECTIONS.find((s) => s.slug === slug);
   return { title: sec ? `${sec.title} — Systems Knowledge Atlas V1` : "Systems Knowledge Atlas V1" };
 }
@@ -53,6 +69,20 @@ function renderBlocks(blocks: V1Block[]) {
 
 export default async function SectionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const v2 = ATLAS_V2_BY_SLUG[slug];
+  if (v2) {
+    const vi = ATLAS_V2_CHAPTERS.findIndex((c) => c.slug === slug);
+    const domainOf = Object.fromEntries(ATLAS_V2_DOMAIN_MAP.map((m) => [m.slug, m]));
+    const all: ChapterLite[] = ATLAS_V2_CHAPTERS.map((c) => ({ slug: c.slug, title: c.title, proposedDomain: domainOf[c.slug]?.proposedDomain ?? "Not recorded" }));
+    const related: RelatedResolved[] = (ATLAS_V2_RELATED[slug] ?? []).map((r) => ({
+      slug: r.slug, title: ATLAS_V2_BY_SLUG[r.slug]?.title ?? r.slug,
+      proposedDomain: domainOf[r.slug]?.proposedDomain ?? "Not recorded", evidence: r.evidence, detail: r.detail,
+    }));
+    const prev = vi > 0 ? all[vi - 1] : null;
+    const next = vi < all.length - 1 ? all[vi + 1] : null;
+    const map = domainOf[slug];
+    return <Reader chapter={v2} prev={prev} next={next} related={related} all={all} proposedDomain={map?.proposedDomain ?? "Not recorded"} sourceDomain={v2.sourceDomain} flagged={map?.flagged ?? false} />;
+  }
   const idx = V1_SECTIONS.findIndex((s) => s.slug === slug);
   if (idx < 0) notFound();
   const sec = V1_SECTIONS[idx];
