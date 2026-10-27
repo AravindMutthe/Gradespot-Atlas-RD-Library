@@ -5,10 +5,10 @@ import { ATLAS_V2_CHAPTERS } from "@/lib/atlas-v2/chapters";
 
 // Sitemap correction (DES-03 mandatory correction; Step 1) + Step 2
 // reconciliation: lists every public route this branch actually serves —
-// home, Explore, Library, Learning Paths, Search, Sources, About, and all
-// 57 chapter slugs — with trailing-slash canonicals matching the
-// static-export layout. Routes NOT listed because they do not exist yet:
-// /system-explorer (Step 3), /feed.xml and /data/v1/* (proposed, not
+// home, Explore, System Explorer (Step 3), Library, Learning Paths, Search,
+// Sources, About, and all 57 chapter slugs — with trailing-slash
+// canonicals matching the static-export layout. Routes NOT listed because
+// they do not exist yet: /feed.xml and /data/v1/* (proposed, not
 // existing); listing non-existent routes would be incorrect. V1 fallback
 // slugs (Step 2, DES-03 section 5): measured 2026-10-27, all 30 V1 slugs
 // coincide with canonical chapter slugs, so every fallback URL is already
@@ -16,13 +16,14 @@ import { ATLAS_V2_CHAPTERS } from "@/lib/atlas-v2/chapters";
 // V1 fallback pages carry canonical URLs in [slug] metadata (Step 2);
 // canonical metadata is not a functioning HTTP redirect, and no redirect
 // is claimed or implemented (static export serves each URL directly).
-// Reconciled inventory: 7 static routes + 57 chapter URLs = 64 sitemap
-// URLs.
+// Reconciled inventory: 8 static routes + 57 chapter URLs = 65 sitemap
+// URLs (Step 3 adds /system-explorer).
 const BASE = process.env.ATLAS_BASE_URL ?? "https://aravind-systems-atlas.vercel.app";
 
 const STATIC_ROUTES: { path: string; changeFrequency: "weekly" | "monthly"; priority: number }[] = [
   { path: "", changeFrequency: "weekly", priority: 1 },
   { path: "explore", changeFrequency: "weekly", priority: 0.8 },
+  { path: "system-explorer", changeFrequency: "weekly", priority: 0.8 },
   { path: "library", changeFrequency: "weekly", priority: 0.9 },
   { path: "learning-paths", changeFrequency: "weekly", priority: 0.8 },
   { path: "search", changeFrequency: "monthly", priority: 0.5 },

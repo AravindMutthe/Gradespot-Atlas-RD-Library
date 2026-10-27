@@ -1,0 +1,119 @@
+/* System Explorer styles (Step 3). Tokens come from globals.css.
+   Layout is fluid: no fixed widths, SVG scrolls horizontally on narrow
+   screens instead of overflowing, nav links meet the 44px touch target. */
+
+.viewNav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+}
+
+.viewNav a {
+  border: 1px solid var(--navy);
+  background: var(--surface);
+  color: var(--navy);
+  border-radius: 10px;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.viewNav a:hover {
+  background: #edf5ff;
+}
+
+.tierGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 14px 0;
+}
+
+@media (max-width: 800px) {
+  .tierGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.svgWrap {
+  overflow-x: auto;
+  margin: 18px 0;
+}
+
+.svgWrap svg {
+  display: block;
+  min-width: 520px;
+}
+
+.svgWrap figcaption {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.cmdBlock {
+  background: var(--dark);
+  color: var(--dark-ink);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  overflow-x: auto;
+}
+
+.cmdBlock code {
+  color: #ffffff;
+  word-break: break-all;
+}
+
+.cmdBlock p {
+  margin: 6px 0;
+}
+
+.edgeTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 14px;
+}
+
+.edgeTable th,
+.edgeTable td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.edgeTable th {
+  background: var(--navy);
+  color: var(--canvas);
+}
+
+@media (max-width: 520px) {
+  .edgeTable {
+    font-size: 13px;
+  }
+  .edgeTable th,
+  .edgeTable td {
+    padding: 8px;
+  }
+}
+
+.prevNext {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 18px 0 30px;
+}
+
+.prevNext a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}

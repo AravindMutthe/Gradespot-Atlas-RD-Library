@@ -11,12 +11,13 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5 };
 
-// Single global navigation (DES-03). System Explorer is intentionally NOT
-// listed: its /system-explorer route does not exist yet (Step 3), and
+// Single global navigation (DES-03). System Explorer is listed from Step 3,
+// when its /system-explorer route actually exists and passes verification;
 // planned features must not appear as functional destinations before they
 // exist. The legacy V1 sidebar is retired with this layout.
 const NAV: { href: string; label: string }[] = [
   { href: "/explore", label: "Explore" },
+  { href: "/system-explorer", label: "System Explorer" },
   { href: "/library", label: "Library" },
   { href: "/learning-paths", label: "Learning Paths" },
   { href: "/search", label: "Search" },
