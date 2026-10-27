@@ -3,10 +3,13 @@ import LibraryClient, { type LibraryRow } from "@/components/atlas-v2/LibraryCli
 import { ATLAS_V2_CHAPTERS, ATLAS_V2_RELEASE } from "@/lib/atlas-v2/chapters";
 import { ATLAS_V2_DOMAINS, ATLAS_V2_DOMAIN_MAP } from "@/lib/atlas-v2/domains";
 
+const BASE = process.env.ATLAS_BASE_URL ?? "https://aravind-systems-atlas.vercel.app";
+
 export const metadata: Metadata = {
   title: "Library — Aravind Systems Atlas",
-  description: "All 57 chapters of the Aravind Systems Atlas, grouped by the proposed seven-domain grouping (pending owner approval).",
-  alternates: { canonical: "https://aravind-systems-atlas.vercel.app/library" },
+  description:
+    "All 57 chapters of the Aravind Systems Atlas, grouped by a configurable domain projection. Domain is grouping and filtering only; chapter slugs never change.",
+  alternates: { canonical: `${BASE}/library/` },
 };
 
 export default function LibraryPage() {
