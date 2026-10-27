@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" data-variant="a" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design alternatives A / B / C — Aravind Systems Atlas</title>
+<meta name="description" content="Comparable homepage and reader references for design Alternatives A, B and C. The final theme is the owner&#x27;s call.">
+<link rel="canonical" href="https://aravind-systems-atlas.vercel.app/themes.html">
+<meta property="og:title" content="Design alternatives A / B / C — Aravind Systems Atlas">
+<meta property="og:description" content="Comparable homepage and reader references for design Alternatives A, B and C. The final theme is the owner&#x27;s call.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="index.html" aria-label="Aravind Systems Atlas home"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-text">Aravind Systems Atlas</span></a>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation">Menu</button>
+<nav id="site-nav" class="site-nav" aria-label="Primary"><a href="index.html">Home</a><a href="library.html">Library</a><a href="learning-paths.html">Learning Paths</a><a href="explorer.html">System Explorer</a><a href="sources.html">Sources</a><a href="about.html">About</a></nav>
+</div>
+<div class="theme-bar" role="group" aria-label="Design preview controls">
+<label>Design preview: <select id="variant-select" aria-label="Design alternative">
+<option value="a">Alternative A — current default</option>
+<option value="b">Alternative B — V1 evolution</option>
+<option value="c">Alternative C — editorial paper</option>
+</select></label>
+<button id="mode-toggle" type="button" aria-pressed="false">Dark mode</button>
+<a href="themes.html">Compare A / B / C</a>
+<p class="theme-note">Final theme is the owner's call. This switcher is a Preview 1 comparison aid only.</p>
+</div>
+</header>
+<main id="main">
+
+<section><h1>Design alternatives — compare A, B and C</h1>
+<p class="flag"><strong>No theme is declared final here.</strong> The owner decides. Use the switcher in the header to re-skin every page instantly, or use the <code>?variant=a|b|c</code> links below. Alternative A is the Preview 1 default.</p>
+<p><a href="index.html?variant=a">Homepage in A</a> · <a href="index.html?variant=b">Homepage in B</a> · <a href="index.html?variant=c">Homepage in C</a> · <a href="library.html?variant=b">Library in B</a> · <a href="library.html?variant=c">Library in C</a></p>
+<h2>Token tables</h2>
+<table class="tokens">
+<thead><tr><th>Token</th><th>Alternative A (default)</th><th>Alternative B (V1 evolution)</th><th>Alternative C (editorial paper)</th></tr></thead>
+<tbody>
+<tr><td>Header / navy</td><td>#10233F</td><td>#0c2030 (V1 dark header)</td><td>#1F2937 (ink, restrained)</td></tr>
+<tr><td>Accent blue</td><td>#2563EB</td><td>#175d9c (from hybrid prototype)</td><td>#1D4ED8 (sparingly)</td></tr>
+<tr><td>Teal</td><td>#0D9488</td><td>#075f70 (V1 teal, modernised)</td><td>#0F766E (muted)</td></tr>
+<tr><td>Canvas</td><td>#F8FAFC</td><td>Paper gradient (#fbfaf5 → #f4efe5, from prototypes)</td><td>#FDFBF7 paper, #F4EFE5 tint</td></tr>
+<tr><td>Text</td><td>#1E293B</td><td>#1E293B</td><td>#292524 (warm ink)</td></tr>
+<tr><td>UI font</td><td>Inter / Geist UI stack</td><td>Inter / Geist UI stack</td><td>Inter for UI chrome only</td></tr>
+<tr><td>Reading font</td><td>Source Serif 4 for headings + long text</td><td>Source Serif 4 for headings</td><td>Source Serif 4 throughout (serif-forward)</td></tr>
+<tr><td>Code font</td><td>JetBrains Mono</td><td>JetBrains Mono</td><td>JetBrains Mono</td></tr>
+<tr><td>Dark mode</td><td>Navy #0B1526 canvas, #E2E8F0 text</td><td>#0c2030 canvas, paper text</td><td>Dark warm ink #1C1917, #E7E5E4 text</td></tr>
+</tbody>
+</table>
+<h2>Live mini-previews (same content, three skins)</h2>
+<div class="variant-showcase" data-variant="a">
+<article class="mini"><p class="eyebrow">Alternative A — current default</p><h3>Read as a story, inspect as an engineer.</h3><p>Strong Atlas identity, navy header, blue links, teal accents, light canvas. Long-form reading qualities borrowed from C: generous measure and serif headings.</p><p><a href="index.html?variant=a">Open the homepage in A</a></p></article>
+</div>
+<div class="variant-showcase" data-variant="b">
+<article class="mini"><p class="eyebrow">Alternative B — V1 evolution</p><h3>Read as a story, inspect as an engineer.</h3><p>The V1 design, modernised: dark #0c2030 header, paper gradient, V1 teal #075f70. Closest continuity with the live V1 site.</p><p><a href="index.html?variant=b">Open the homepage in B</a></p></article>
+</div>
+<div class="variant-showcase" data-variant="c">
+<article class="mini"><p class="eyebrow">Alternative C — editorial paper</p><h3>Read as a story, inspect as an engineer.</h3><p>Serif-forward editorial paper: warm paper canvas, restrained ink, quiet accents. Best long-form reading feel; weakest for dense dashboard-style chrome.</p><p><a href="index.html?variant=c">Open the homepage in C</a></p></article>
+</div>
+<h2>What the owner is being asked to judge</h2>
+<ul>
+<li>Identity: does A read as a research library, or does B's V1 continuity matter more?</li>
+<li>Reading: is C's paper feel worth its quieter navigation and accents?</li>
+<li>Dark mode: each alternative has its own dark tokens — toggle Dark mode in the header while comparing.</li>
+</ul>
+<p>Reference designs consulted (read-only, phone Atlas archive): <code>aravind-library-two-designs/blueprint/</code> and <code>editorial/</code> (paper tones #eee8dc/#f4efe5, gold accent #c28d3e, provenance labels, step flows) and <code>aravind-systems-atlas-hybrid-final/</code> (dark header accents #175d9c, V1 teal #075f70, originals-as-is). No prototype file was copied; token values above that come from a prototype are noted as such.</p>
+</section>
+
+</main>
+<footer class="site-footer">
+<p><strong>Aravind Systems Atlas</strong> — research edition. Content release <code>v1-consolidated-001</code> · version <code>1.0.0-continuing</code> · 57 chapters · 136 images · 22 diagrams · 48 tables · content SHA-256 <code>970489efd3899d29</code>.</p>
+<p>Preview 1 (WP2): homepage + global navigation + design references. Full chapter reader, full search and Labs are later work packages. Labs is planned and has no destination in this preview; AI is not in the navigation.</p>
+<p><a href="index.html">Home</a> · <a href="library.html">Library</a> · <a href="learning-paths.html">Learning Paths</a> · <a href="explorer.html">System Explorer</a> · <a href="sources.html">Sources</a> · <a href="about.html">About</a> · <a href="themes.html">Design alternatives</a></p>
+</footer>
+</body>
+</html>
