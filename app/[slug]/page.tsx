@@ -33,7 +33,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
   const sec = V1_SECTIONS.find((s) => s.slug === slug);
-  return { title: sec ? `${sec.title} — Systems Knowledge Atlas V1` : "Systems Knowledge Atlas V1" };
+  // Step 2 (DES-03 section 5 mandatory correction): V1 fallback slugs now
+  // carry a canonical URL. Canonical metadata only: a static export
+  // provides no functioning HTTP redirects, and none is claimed or
+  // implemented — a fallback slug is served directly at its own URL, never
+  // redirected. Measured 2026-10-27, all 30 V1 slugs coincide with canonical
+  // chapter slugs, so for every emitted route the v2 branch above governs
+  // and this branch is unreachable; it exists so any future V1-only slug
+  // still gets a canonical instead of none.
+  return { title: sec ? `${sec.title} — Systems Knowledge Atlas V1` : "Systems Knowledge Atlas V1", alternates: { canonical: `${BASE}/${slug}/` } };
 }
 
 function anchorId(text: string, i: number): string {
