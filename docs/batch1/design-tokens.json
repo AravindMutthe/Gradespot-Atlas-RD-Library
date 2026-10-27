@@ -1,0 +1,251 @@
+{
+  "$schema": "atlas-batch1-design-tokens",
+  "alternatives": {
+    "A_briefTokens": "This file's light + dark themes. Light default, full dark mode. See design-tokens.md for the verified/failed pairs.",
+    "B_v1Evolution": {
+      "header": "#0C2030",
+      "note": "Dark #0c2030 header, paper gradient, teal #075f70, modernised (reader chrome, tokens, mobile drawer/strip, dark/light polish). Teal #075f70 verified: 6.97:1 on canvas, 7.29:1 on white (AA pass). Paper-gradient stops: UNVERIFIED \u2014 exact stops were not recovered from the reference prototypes in this pass and must be sampled from the live V1 CSS at implementation time, not guessed here. Continuity argument: this is the identity the owner already uses; redesign argument: the briefs call V1 a redesign-from, not a tweak, so an evolution must still read as a deliberate step forward.",
+      "teal": "#075F70"
+    },
+    "C_editorialPaper": {
+      "accent": "#176B58",
+      "bg": "#FAF8F2",
+      "hero": "#E7EEE6",
+      "ink": "#26342F",
+      "line": "#DDDCD3",
+      "muted": "#63726B",
+      "note": "Serif-forward, quiet chrome, best long-form reading feel. Weakest for interactive/Explorer surfaces, which would need a companion component style. Its reading qualities (paper canvas, serif long-form, generous leading, quiet chrome) are adopted INTO Alternative A's foundation in this package's direction; its full palette is not adopted as the theme.",
+      "surface": "#FFFEFA",
+      "verified": "Ink on paper 12.25:1 (AA pass), accent on paper 6.03:1 (AA pass), muted on paper 4.77:1 (AA pass) \u2014 all computed from the editorial prototype's own CSS values."
+    },
+    "referenceDarkBlueprint": {
+      "accent": "#6DD5E8",
+      "bg": "#080F1B",
+      "ink": "#E7F2FF",
+      "muted": "#9DB5CB",
+      "note": "Recorded as evidence that the dark prototype language already passes AA; it is not a fourth alternative, it is the dark half of the prototype pair.",
+      "surface": "#111E2E",
+      "verified": "Ink on bg 16.94:1, muted on bg 9.05:1, accent on bg 11.27:1 (AA pass) \u2014 computed from the blueprint prototype's own CSS values."
+    }
+  },
+  "color": {
+    "dark": {
+      "accentBlue": "#60A5FA",
+      "accentTeal": "#2DD4BF",
+      "accentTealButtonText": "#0F172A",
+      "border": "#334155",
+      "brandNavy": "#0F172A",
+      "canvas": "#0F172A",
+      "codeBg": "#1E293B",
+      "codeInk": "#E2E8F0",
+      "focusRing": "#60A5FA",
+      "ink": "#E2E8F0",
+      "muted": "#94A3B8",
+      "surface": "#1E293B",
+      "surfaceRaised": "#273449",
+      "usage_restrictions": {
+        "accentTeal": "Dark-theme teal text/icon colour. Do NOT pair white text with the light-theme #0D9488 in dark mode (3.74:1, AA fail); dark buttons use dark text #0F172A on #2DD4BF (9.59:1).",
+        "border": "Border/dividers only; no text-contrast claim.",
+        "surfaceRaised": "Verified as a text background: ink #E2E8F0 on #273449 = 10.18:1, muted #94A3B8 on #273449 = 4.89:1 (AA pass).",
+        "surfaceText": "Verified on dark surface #1E293B: ink #E2E8F0 = 11.87:1, muted #94A3B8 = 5.71:1, blue #60A5FA = 5.75:1, teal #2DD4BF = 7.86:1 (AA pass)."
+      }
+    },
+    "light": {
+      "accentBlue": "#2563EB",
+      "accentBlueHover": "#1D4ED8",
+      "accentTeal": "#0D9488",
+      "accentTealDeep": "#075f70",
+      "accentTealText": "#0F766E",
+      "border": "#CBD5E1",
+      "brandNavy": "#10233F",
+      "canvas": "#F8FAFC",
+      "codeBg": "#F1F5F9",
+      "codeInk": "#1E293B",
+      "focusRing": "#2563EB",
+      "ink": "#1E293B",
+      "muted": "#475569",
+      "provenanceAddedBg": "#EDF5FF",
+      "provenanceAddedInk": "#175D9C",
+      "provenanceDiagramBg": "#E9F7F0",
+      "provenanceOriginalBorder": "#C28D3E",
+      "provenanceWarnBg": "#FFF2D7",
+      "surface": "#FFFFFF",
+      "surfaceRaised": "#F1F5F9",
+      "usage_restrictions": {
+        "accentBlueHover": "VERIFIED: white on #1D4ED8 = 6.70:1 (AA pass, button label); #1D4ED8 on canvas #F8FAFC = 6.41:1 (AA pass, text).",
+        "accentTeal": "LARGE TEXT (>= 18.66px bold or >= 24px), decorative elements, borders and icons ONLY. It FAILS AA for normal text (3.58:1 on canvas, 3.74:1 on white) and white text on it also fails (3.74:1). Never use #0D9488 for body text, links, or button labels.",
+        "accentTealText": "Use this, not #0D9488, for teal body text and links (5.23:1 on canvas, AA pass).",
+        "border": "Border/dividers only; no text-contrast claim.",
+        "provenanceAddedInk": "VERIFIED: #175D9C on its panel bg #EDF5FF = 6.20:1 and on canvas #F8FAFC = 6.51:1 (AA pass).",
+        "provenanceBorders": "Provenance border accents (#C28D3E original, #C18D35 verify, #42A987 diagram) are BORDERS ONLY: as text they fail AA (2.8:1, 2.66:1, 2.62:1 respectively). Never use them for text; panel text uses ink/muted/accent tokens.",
+        "surfaceRaised": "Verified as a text background: ink #1E293B on #F1F5F9 = 13.35:1, muted #475569 on #F1F5F9 = 6.92:1 (AA pass)."
+      }
+    }
+  },
+  "components": {
+    "card": {
+      "background": "surface",
+      "border": "1px solid border",
+      "padding": "cardPadding",
+      "radius": "card"
+    },
+    "code": {
+      "background": "codeBg",
+      "font": "fontCode",
+      "ink": "codeInk"
+    },
+    "diagram": {
+      "font": "fontCode for labels where applicable",
+      "rule": "Diagrams are static SVG/Mermaid-style visuals or lazy-loaded interactive modules; never force every article into a canvas."
+    },
+    "focus": {
+      "rule": "Focus must be visible in both themes; do not remove outlines without a replacement of equal visibility.",
+      "style": "2px solid focusRing outline, visible on keyboard focus"
+    },
+    "hero": {
+      "background": "surfaceRaised (light) / surface (dark)",
+      "padding": "heroPadding",
+      "radius": "hero"
+    },
+    "nav": {
+      "activeBackground": "surfaceRaised",
+      "header": "sticky, top 0, canvas background, 1px bottom border",
+      "itemPadding": "10px",
+      "itemRadius": "navItem"
+    },
+    "originalImage": {
+      "background": "#F4EFE5 (paper)",
+      "border": "1px solid border",
+      "fit": "contain",
+      "maxHeight": "580px",
+      "radius": "image"
+    },
+    "provenancePanel": {
+      "added": {
+        "background": "provenanceAddedBg",
+        "borderLeft": "5px solid accentBlue",
+        "label": "Added / enhancement"
+      },
+      "diagram": {
+        "background": "provenanceDiagramBg",
+        "borderLeft": "5px solid #42A987",
+        "label": "Diagram (created, not a recreation of an original drawing)"
+      },
+      "original": {
+        "borderLeft": "5px solid provenanceOriginalBorder",
+        "label": "Original"
+      },
+      "rule": "Every panel that is not original material carries its label. Original scans are reproduced unchanged; enhancements, corrections and unverified claims are always labelled separately. No panel may present added material as original.",
+      "verify": {
+        "background": "provenanceWarnBg",
+        "borderLeft": "5px solid #C18D35",
+        "label": "Verification / unresolved"
+      }
+    },
+    "sourcesGrid": {
+      "captionSize": "captionSize",
+      "columns": "repeat(auto-fill, minmax(160px, 1fr))",
+      "imageFit": "contain on paper background",
+      "imageHeight": "210px"
+    },
+    "stepFlow": {
+      "border": "1px solid border",
+      "connector": "centred accent glyph between steps",
+      "maxWidth": "760px",
+      "padding": "15px 18px",
+      "radius": "step",
+      "stepBackground": "surface"
+    }
+  },
+  "domainColours": {
+    "note": "No per-domain colour is assigned in this package. Domain is a grouping/filter, and inventing seven domain colours now would create a legend nobody approved. If domain colours are wanted, they must be proposed, contrast-checked, and approved as a separate decision."
+  },
+  "layout": {
+    "articleMaxWidth": "720px",
+    "breakpointMobile": "800px",
+    "contentMaxWidth": "1150px",
+    "headerHeight": "75px",
+    "mobileBehaviour": "Below 800px the sidebar becomes a horizontal strip (prototype behaviour: nav becomes a horizontal scroll strip, main padding narrows). A drawer is an acceptable implementation of the same behaviour, but the strip is the proven pattern.",
+    "sidebarWidth": "240px",
+    "sidebarWidthNote": "240px is the width proven in all three reference prototypes (sticky sidebar switcher). The brief plan's 260-280px collapsible range is recorded as an open implementation option, not adopted silently; the owner can move this token without touching page code."
+  },
+  "meta": {
+    "contrast_method": "WCAG 2.2 relative-luminance ratios, computed 2026-10-27 from the hex values in this file. AA normal text requires >= 4.5:1; AA large text / UI components require >= 3:1. Any token pair not listed in design-tokens.md under 'Verified contrast pairs' is UNVERIFIED and must not be used for body text until checked.",
+    "direction": "Alternative A foundation (brief tokens) WITH Alternative C long-form reading qualities. See design-tokens.md for Alternatives B and C.",
+    "intended_feel": "A serious research publication combined with an interactive engineering laboratory \u2014 not a generic blog, course marketplace, or documentation template. (Direction only; no copy is taken from any brief.)",
+    "name": "Aravind Systems Atlas \u2014 Batch 1 design tokens (framework-agnostic)",
+    "source_of_truth": "Content stays JSON (no MDX migration). Tokens are presentation only; they change no chapter content, slug, or URL.",
+    "status": "PROPOSED. Final theme remains the owner's call; no theme is declared final here."
+  },
+  "radius": {
+    "button": "9px",
+    "card": "15px",
+    "hero": "22px",
+    "image": "12px",
+    "navItem": "9px",
+    "panel": "15px",
+    "pill": "999px",
+    "step": "12px"
+  },
+  "shadow": {
+    "card": "none (border-defined cards, per the prototypes: 1px border, no drop shadow)",
+    "note": "Shadows are intentionally absent in the prototype language; if a later implementation adds elevation shadows, they must be added as tokens here first, not hard-coded in pages."
+  },
+  "spacing": {
+    "base": "4px",
+    "cardPadding": "20px",
+    "gridGap": "14px",
+    "heroPadding": "30px",
+    "mainPadding": "38px 5vw 70px",
+    "scale": {
+      "0": "0",
+      "1": "4px",
+      "10": "40px",
+      "12": "48px",
+      "16": "64px",
+      "2": "8px",
+      "3": "12px",
+      "4": "16px",
+      "5": "20px",
+      "6": "24px",
+      "8": "32px"
+    },
+    "sectionGap": "22px"
+  },
+  "typography": {
+    "articleMeasure": "720px",
+    "articleMeasureNote": "Within the brief's 720-800px article range; the lower end is chosen so long-form lines stay readable on laptop widths with the sidebar present. Long-form article text uses fontLongform; UI, cards, nav and labels use fontUi; code and diagram labels use fontCode.",
+    "bodyLineHeight": 1.7,
+    "bodySize": "16px",
+    "captionSize": "12px",
+    "eyebrowSize": "11px",
+    "fontCode": [
+      "JetBrains Mono",
+      "ui-monospace",
+      "SFMono-Regular",
+      "Menlo",
+      "monospace"
+    ],
+    "fontLongform": [
+      "Source Serif 4",
+      "Georgia",
+      "serif"
+    ],
+    "fontNote": "Stacks are named, not bundled, in this package. Implementation must self-host any non-system font locally in the repo (never hotlink) or fall back down the stack. Font files are NOT included here.",
+    "fontUi": [
+      "Inter",
+      "Geist",
+      "system-ui",
+      "-apple-system",
+      "Segoe UI",
+      "sans-serif"
+    ],
+    "h1LineHeight": 1.1,
+    "h1Size": "clamp(32px, 5vw, 56px)",
+    "h2LineHeight": 1.3,
+    "h2Size": "22px",
+    "h3Size": "16px",
+    "leadSize": "18px",
+    "smallSize": "13px"
+  }
+}
