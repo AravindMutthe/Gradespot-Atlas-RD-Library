@@ -56,21 +56,3 @@
 .drawer { position: fixed; inset: 0 auto 0 0; width: min(320px, 88vw); background: var(--surface); color: var(--ink); z-index: 50; overflow-y: auto; padding: 16px; box-shadow: 4px 0 24px rgba(0,0,0,.3); font-family: Inter, system-ui, sans-serif; }
 .drawer a { color: var(--blue); display: block; padding: 6px 0; overflow-wrap: anywhere; }
 .drawerBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 40; border: 0; width: 100%; }
-import io, re
-p = 'app/globals.css'
-s = io.open(p, encoding='utf-8').read()
-assert '--warn-line:#b45309;' in s, "root warn line not found"
-s = s.replace('--warn-line:#b45309;', '--warn-line:#b45309; --heading:#12243A; --warn-ink:#78350f;', 1)
-n = s.count('--warn-line:#8A6D3B;')
-assert n == 2, "expected 2 dark warn lines, got %d" % n
-s = s.replace('--warn-line:#8A6D3B;', '--warn-line:#8A6D3B; --heading:#E2E8F0; --warn-ink:#E8C87A;')
-lines = [l.strip() for l in s.splitlines() if 'color:var(--navy)' in l]
-print("navy-text lines:", len(lines))
-for l in lines: print("  ", l[:110])
-s = s.replace('color:var(--navy)', 'color:var(--heading)')
-assert '.draft-note' in s and '#7A5A12' in s, "draft-note not found"
-s = s.replace('color:#7A5A12;', 'color:var(--warn-ink);', 1)
-assert 'border-top:2px solid var(--navy)' in s, "archive border not found"
-s = s.replace('border-top:2px solid var(--navy)', 'border-top:2px solid var(--line)', 1)
-io.open(p, 'w', encoding='utf-8').write(s)
-print("GLOBALS-OK")
