@@ -4,8 +4,8 @@
    navy #12243A, blue #2463A6, teal #087F83, canvas #F7F8F6, dark #101B2B.
    Teal is used for borders/accents and large text only — never small text
    alone on dark backgrounds (3.60 on #101B2B, below AA normal).
-   Fonts are system stacks: no self-hosted font files exist in this tree
-   (DES-02 self-hosting requirement is an open gap, not claimed here). */
+   Fonts are self-hosted via @fontsource (OFL-1.1, locally bundled,
+   no runtime network use) — wired in Phase 1 Commit C (G-12). */
 :root{
   --canvas:#F7F8F6; --surface:#FFFFFF; --ink:#1E293B; --muted:#475569;
   --line:#D9E1E7; --navy:#12243A; --blue:#2463A6; --teal:#087F83;
@@ -14,7 +14,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--canvas);color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif}
+body{margin:0;background:var(--canvas);color:var(--ink);font:16px/1.7 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
 a{color:var(--blue)}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 button{font:inherit;cursor:pointer}
@@ -124,3 +124,7 @@ h3{font-size:16px;margin:0 0 8px;color:var(--navy)}
 @media(max-width:520px){
   .diagram-layers div{grid-template-columns:1fr}
 }
+
+/* Phase 1 (Commit C): editorial type stack (Source Serif 4). Applied to
+   chapter prose by the Reader in Phase 2; homepage excerpts use it now. */
+.editorial{font-family:"Source Serif 4",Georgia,serif}
