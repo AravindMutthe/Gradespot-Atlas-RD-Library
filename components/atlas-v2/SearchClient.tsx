@@ -96,7 +96,7 @@ function SearchInner() {
   return (
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", maxWidth: 900, margin: "0 auto", padding: 16 }}>
       <p><Link href="/">Home</Link> / <Link href="/library">Library</Link> / Search</p>
-      <p>Build-time full-text search over verified titles, headings and body content (57 chapters, release v1-consolidated-001). No external service, no vector database.</p>
+      <p>Build-time full-text search over verified titles, headings and body content (57 chapters, release v1-consolidated-002). No external service, no vector database.</p>
       <form action="/search" method="get" role="search" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <label htmlFor="search-q" style={{ position: "absolute", left: "-9999px" }}>Search query</label>
         <input ref={inputRef} id="search-q" name="q" type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Try: memory, NIC packet, Linux kernel, market integration…" autoFocus

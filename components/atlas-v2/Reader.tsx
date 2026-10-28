@@ -227,7 +227,7 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
           {all.map((c) => <Link key={c.slug} href={`/${c.slug}`} aria-current={c.slug === chapter.slug ? "page" : undefined} style={c.slug === chapter.slug ? { fontWeight: 700 } : undefined}>{displayTitle(c.title)}</Link>)}
         </aside>
         <article className={styles.article} style={{ fontSize, lineHeight: lineHeight === "comfortable" ? 1.75 : 1.5, maxWidth: lineWidth === "narrow" ? "62ch" : lineWidth === "wide" ? "84ch" : "72ch" }}>
-          <p className={styles.meta}>Content release v1-consolidated-001 · version 1.0.0-continuing</p>
+          <p className={styles.meta}>Content release v1-consolidated-002 · version 1.0.0-continuing</p>
           <h1>{displayTitle(chapter.title)}</h1>
           <p className={styles.lead}>Source domain: {sourceDomain} (verified master) · {chapter.paragraphCount} paragraphs · {chapter.imageCount} images · {chapter.tables.length} tables · {chapter.diagrams.length} diagrams · Proposed grouping (pending reconciliation): {proposedDomain}{flagged ? " · flagged for review" : ""}</p>
           <p className={styles.meta}>Sources: {chapter.sources.length > 0 ? chapter.sources.join(" · ") : "Not recorded in the master (shown as missing, not guessed)."}</p>
@@ -272,7 +272,7 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
             <Link className={styles.btn} href="/library">Library</Link>
             {next ? <Link className={styles.btn} href={`/${next.slug}`}>Next: {displayTitle(next.title)} →</Link> : null}
           </nav>
-          <footer className={styles.meta}>Aravind Systems Atlas · release v1-consolidated-001 · Recovered historical exports are partial reconstructions, not verbatim transcripts.</footer>
+          <footer className={styles.meta}>Aravind Systems Atlas · release v1-consolidated-002 · Recovered historical exports are partial reconstructions, not verbatim transcripts.</footer>
         </article>
         <aside className={styles.tocCol} aria-label="On this page">
           <nav className={styles.toc}>
