@@ -88,7 +88,7 @@ function LibraryInner({ rows }: { rows: LibraryRow[] }) {
           </article>
         ))}
       </div>
-      <footer style={{ marginTop: 28, fontSize: "0.85rem", color: "var(--muted)" }}>Release v1-consolidated-001 · version 1.0.0-continuing · content SHA 970489efd3899d29 · {rows.length} chapters · 136 images. Cross-domain discovery: every chapter page carries labelled related-chapter links (verified links distinguished from discovery suggestions); no chapter content is duplicated in the library.</footer>
+      <footer style={{ marginTop: 28, fontSize: "0.85rem", color: "var(--muted)" }}>Release v1-consolidated-002 · version 1.0.0-continuing · content SHA c60d28fd926710f6a69afd0220efe6b3d572cfe345b33d91a614d89fb9fec494 · {rows.length} chapters · 136 images. Cross-domain discovery: every chapter page carries labelled related-chapter links (verified links distinguished from discovery suggestions); no chapter content is duplicated in the library.</footer>
     </div>
   );
 }

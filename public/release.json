@@ -1,7 +1,7 @@
 {
   "atlas": "Aravind Systems Atlas",
   "version": "1.0.0-continuing",
-  "contentRelease": "v1-consolidated-001",
+  "contentRelease": "v1-consolidated-002",
   "status": "research-edition",
   "chapters": 57,
   "unique_images": 136,
@@ -160,7 +160,61 @@
       "reason": "duplicate-title teaser"
     }
   ],
-  "content_sha256": "970489efd3899d29",
+  "content_sha256": "c60d28fd926710f6a69afd0220efe6b3d572cfe345b33d91a614d89fb9fec494",
   "diagrams": 22,
-  "tables": 48
+  "tables": 48,
+  "content_sha256_method": "SHA-256 over the concatenation of the 57 chapter JSON files' raw bytes in slug-sorted order (UTF-8, no separators). This method supersedes the v1-consolidated-001 method (SHA-256 of the chapter-metadata entries JSON, truncated to 16 hex characters), which cannot distinguish text corrections because paragraph counts are unchanged.",
+  "content_sha256_metadata_entries": "970489efd3899d29",
+  "contentSourceEdition": "v1-consolidated-001",
+  "parentTag": "v1-consolidated-001",
+  "parentCommit": "104fe5e2d72e8ef4ed2c9d867ac3ac401a38c6e3",
+  "correctionLedger": {
+    "reference": "Atlas decision batch Stage 5 correction ledger, 2026-10-28 (~/workspace/atlas-audit/atlas-decision-batch-stage5-correction-ledger-2026-10-28.md)",
+    "paragraphRows": 75,
+    "headingRows": 6,
+    "totalCorrectedItems": 81,
+    "families": {
+      "G-01": {
+        "paragraphs": 9,
+        "headings": 1,
+        "items": 10,
+        "approval": "owner tap 2026-10-28 12:31 IST"
+      },
+      "siblings": {
+        "paragraphs": 55,
+        "sentences": 58,
+        "headings": 5,
+        "items": 60,
+        "approval": "owner tap 2026-10-28 12:46 IST"
+      },
+      "eleven": {
+        "paragraphs": 11,
+        "headings": 0,
+        "items": 11,
+        "approval": "owner tap 2026-10-28 12:56 IST"
+      },
+      "other": 0
+    },
+    "recordNote": "The 81 items are EDITORIAL CORRECTION RECORDS (owner-authorized honesty corrections to false present-tense / embedding claims about original-note scans). They are not new research claims and do not constitute new-research approval."
+  },
+  "exclusions": {
+    "carriedFromParent": "excluded_instances array unchanged from v1-consolidated-001 (3 navigation pages + 22 duplicate-title teasers).",
+    "explicitlyNotIncluded": [
+      "b023 proposed chapters N1-N4",
+      "26 b023 embedded images",
+      "48 b023 omitted table cells",
+      "ANY Ch21 material (mergeable-pending, restricted, or permanently withheld)",
+      "92 root-page associations",
+      "diagram-deduplication outcomes",
+      "new taxonomy mappings",
+      "M1 (parked)",
+      "supporting-sentence final copy (draft stays draft)",
+      "any privacy-status change",
+      "any H1-H9 hold change",
+      "any note-image publication"
+    ]
+  },
+  "sourceCommit": "104fe5e2d72e8ef4ed2c9d867ac3ac401a38c6e3",
+  "contentCommit": "2e6647e61e26e04eb2693943572e36152ed8fe72",
+  "applicationVersion": "1.0.0-continuing"
 }

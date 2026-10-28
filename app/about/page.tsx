@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <p className="eyebrow">Release v1-consolidated-001</p>
+      <p className="eyebrow">Release v1-consolidated-002</p>
       <h1>About the Atlas</h1>
       <p className="positioning">
         Professional Cross-Industry Technology and Economic Knowledge Hub.
@@ -87,10 +87,10 @@ export default function AboutPage() {
       <section className="panel">
         <h2>Release</h2>
         <p>
-          Release <code>v1-consolidated-001</code> · Version{" "}
+          Release <code>v1-consolidated-002</code> · Version{" "}
           <code>1.0.0-continuing</code> · Status: research-edition · 57
           chapters · 136 unique original-note images · 22 diagrams · 48
-          tables · Content SHA-256 <code>970489efd3899d29</code>. Manifest:{" "}
+          tables · Content SHA-256 <code>c60d28fd926710f6a69afd0220efe6b3d572cfe345b33d91a614d89fb9fec494</code>. Manifest:{" "}
           <Link href="/release.json">/release.json</Link>.
         </p>
         <p>

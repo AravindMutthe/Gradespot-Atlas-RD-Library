@@ -21,7 +21,7 @@ export default function LearningPathsPage() {
   const paths = pathsData.paths as Path[];
   return (
     <>
-      <p className="eyebrow">Release v1-consolidated-001</p>
+      <p className="eyebrow">Release v1-consolidated-002</p>
       <h1>Choose your learning path</h1>
       <p className="lead">
         Five starter paths. Every step is a real chapter from the 57-chapter

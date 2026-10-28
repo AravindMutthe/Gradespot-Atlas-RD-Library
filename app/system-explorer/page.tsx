@@ -235,7 +235,7 @@ function PrevNext({ index }: { index: number }) {
 export default function SystemExplorerPage() {
   return (
     <>
-      <p className="eyebrow">System Explorer · Release v1-consolidated-001</p>
+      <p className="eyebrow">System Explorer · Release v1-consolidated-002</p>
       <h1>System Explorer</h1>
       <p className="lead">
         A teaching instrument for one journey: from silicon to a working
