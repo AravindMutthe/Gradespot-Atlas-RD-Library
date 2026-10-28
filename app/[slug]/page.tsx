@@ -94,7 +94,7 @@ export default async function SectionPage({ params }: { params: Promise<{ slug: 
       slug: r.slug, title: ATLAS_V2_BY_SLUG[r.slug]?.title ?? r.slug,
       proposedDomain: domainOf[r.slug]?.proposedDomain ?? "Not recorded",
       sourceDomain: ATLAS_V2_BY_SLUG[r.slug]?.sourceDomain ?? "Not recorded",
-      evidence: r.evidence, detail: r.detail,
+      evidence: r.evidence,
     }));
     const prev = vi > 0 ? all[vi - 1] : null;
     const next = vi < all.length - 1 ? all[vi + 1] : null;

@@ -82,7 +82,7 @@ function LibraryInner({ rows }: { rows: LibraryRow[] }) {
           </article>
         ))}
       </div>
-      <footer style={{ marginTop: 28, fontSize: "0.85rem", color: "var(--muted)" }}>Release v1-consolidated-001 · version 1.0.0-continuing · content SHA 970489efd3899d29 · {rows.length} chapters · 136 images. Cross-domain discovery: every chapter page carries labelled related-chapter links, or a Browse entry where none are recorded; no chapter content is duplicated in the library.</footer>
+      <footer style={{ marginTop: 28, fontSize: "0.85rem", color: "var(--muted)" }}>Release v1-consolidated-001 · version 1.0.0-continuing · content SHA 970489efd3899d29 · {rows.length} chapters · 136 images. Cross-domain discovery: every chapter page carries labelled related-chapter links (verified links distinguished from discovery suggestions); no chapter content is duplicated in the library.</footer>
     </div>
   );
 }

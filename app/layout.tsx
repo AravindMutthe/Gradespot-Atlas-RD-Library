@@ -93,13 +93,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="site-main">
           {children}
           <footer className="site-footer">
-            Aravind Systems Atlas · release {ATLAS_V2_RELEASE.contentRelease} · version{" "}
+            <p>Original research: Aravind Mutthe · Aravind Systems Atlas · © 2026 · All rights reserved unless explicitly licensed otherwise.</p>
+            <p>Publication state: research-edition · release {ATLAS_V2_RELEASE.contentRelease} · version{" "}
             {ATLAS_V2_RELEASE.version} · {ATLAS_V2_CHAPTERS.length} chapters · 136 unique images ·{" "}
-            {diagrams} diagrams · {tables} tables
+            {diagrams} diagrams · {tables} tables · last-modified is tied to this release; no per-chapter publication dates are claimed.</p>
             <nav aria-label="Footer">
               <NavItems />
               <Link href="/">Home</Link>
               <Link href="/about">About</Link>
+              <Link href="/corrections">Report a problem</Link>
+              <Link href="/release.json">Release manifest</Link>
             </nav>
           </footer>
         </main>

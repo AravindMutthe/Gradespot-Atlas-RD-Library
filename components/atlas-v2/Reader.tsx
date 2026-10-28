@@ -5,7 +5,7 @@ import type { AtlasV2Chapter } from "@/lib/atlas-v2/chapters";
 import { displayTitle } from "@/lib/atlas-v2/display-title";
 import styles from "./reader.module.css";
 
-export interface RelatedResolved { slug: string; title: string; proposedDomain: string; sourceDomain: string; evidence: string; detail: string; }
+export interface RelatedResolved { slug: string; title: string; proposedDomain: string; sourceDomain: string; evidence: string; }
 export interface ChapterLite { slug: string; title: string; proposedDomain: string; }
 
 function anchorId(text: string, i: number): string {
@@ -27,11 +27,19 @@ function writeJson(key: string, value: unknown): boolean {
 }
 
 // Evidence labels (Phase 2, G-08): chapter-link is the only VERIFIED
-// relation (the chapter's own list). shared-concept and same-domain are
-// DERIVED and labelled "Discovery suggestion" — never verified. Same-domain
-// suggestions are re-based on the VERIFIED master domain, never the
-// proposed grouping (G-05). Stored detail strings are not rendered: labels
-// below are computed so no stale "proposed domain" wording can surface.
+// relation (the chapter's own list). All other evidence is DERIVED and
+// labelled "Discovery suggestion" — never verified. Same-domain links were
+// GENERATED from the proposed-domain grouping, so they must NOT be labelled
+// "same verified domain" blindly: measured 2026-10-28, only 468/586
+// same-domain pairs actually share a verified master domain (118 do not).
+// Hence two branches: pairs sharing the verified domain say so; pairs
+// grouped only by the proposal say so plainly, without naming the proposed
+// domain as if it were decided (G-05). Stored detail strings are not
+// rendered: labels below are computed so no stale "proposed domain"
+// wording can surface. NOTE: zero shared-concept links exist in
+// v1-consolidated-001 data (evidence totals: same-domain 586,
+// chapter-link 132); the shared-concept branch renders only if such links
+// are added later, and only once a concepts index is present to ground it.
 const SOURCE_DOMAIN_LABELS: Record<string, string> = {
   "institutions-markets": "Institutions & Markets",
   "hardware-computing": "Hardware & Computing",
@@ -39,10 +47,11 @@ const SOURCE_DOMAIN_LABELS: Record<string, string> = {
   "systems-evolution": "Systems Evolution",
   "industrial-business-networks": "Industrial & Business Networks",
 };
-function relatedLabel(r: RelatedResolved): string {
+function relatedLabel(r: RelatedResolved, chapterSourceDomain: string): string {
   if (r.evidence === "chapter-link") return "Verified related — named by this chapter's own list.";
   if (r.evidence === "shared-concept") return "Discovery suggestion — both chapters appear under one concept in the concepts index.";
-  return `Discovery suggestion — same verified domain (${SOURCE_DOMAIN_LABELS[r.sourceDomain] ?? r.sourceDomain}) — grouping only, not an editorial link.`;
+  if (r.sourceDomain === chapterSourceDomain) return `Discovery suggestion — same verified domain (${SOURCE_DOMAIN_LABELS[r.sourceDomain] ?? r.sourceDomain}) — grouping only, not an editorial link.`;
+  return "Discovery suggestion — grouped together under a proposed domain grouping (pending reconciliation) — grouping only, not an editorial link.";
 }
 
 export default function Reader({ chapter, prev, next, related, all, proposedDomain, sourceDomain, flagged }:
@@ -234,9 +243,9 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
           </section>
           <section id="related">
             <h2>Related chapters</h2>
-            <p>Links are labelled by evidence. “Verified related” means the chapter’s own list names the chapter. “Discovery suggestion” means the link is derived (a shared concept, or a shared domain) — a suggestion to explore, not a verified relation. Same-domain suggestions use the VERIFIED master domain, never the proposed grouping.</p>
+            <p>Links are labelled by evidence. “Verified related” means the chapter’s own list names the chapter. Anything else is a “Discovery suggestion” — derived, not verified. Same-domain suggestions say plainly whether the pair shares a verified domain or was grouped only by a proposed grouping (pending reconciliation).</p>
             {related.length > 0 ? related.map((r) => (
-              <div key={r.slug} className={styles.card}><Link href={`/${r.slug}`}>{displayTitle(r.title)}</Link><p>{relatedLabel(r)}</p></div>
+              <div key={r.slug} className={styles.card}><Link href={`/${r.slug}`}>{displayTitle(r.title)}</Link><p>{relatedLabel(r, sourceDomain)}</p></div>
             )) : (
               <div className={styles.card}><p>No related chapters are recorded for this chapter (shown as missing, not guessed). <Link href="/library">Browse the Library</Link> to discover connected chapters.</p></div>
             )}
