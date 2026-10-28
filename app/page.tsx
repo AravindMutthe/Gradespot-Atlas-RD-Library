@@ -154,8 +154,8 @@ const LAYERS: Record<string, { flow: { caption: string; steps: string[] }[]; lay
     layers: {
       question: "How do messages share a network?",
       mechanism:
-        "Messages are split into packets that travel independently across switches and routers and are reassembled at the destination.",
-      sequence: "Split → address each packet → forward hop by hop → reassemble in order.",
+        "Messages are split into packets that travel independently across switches and routers. Packets may arrive out of order: the network itself does not guarantee ordering — TCP provides ordered byte-stream delivery, while UDP itself does not guarantee ordering.",
+      sequence: "Split → address each packet → forward hop by hop → reassemble.",
       example:
         "A file download: its packets may take different paths and still arrive as one file.",
       limits:
@@ -180,7 +180,7 @@ const LAYERS: Record<string, { flow: { caption: string; steps: string[] }[]; lay
     layers: {
       question: "How do many systems share few machines?",
       mechanism:
-        "Virtualization inserts a layer between physical hardware and workloads: a hypervisor or container runtime shares hosts among isolated virtual machines or containers.",
+        "Virtualization inserts a layer between physical hardware and workloads. Virtual machines run on virtualized hardware, each with its own kernel under a hypervisor; containers are OS-level virtualization sharing the host kernel. Both let one host run isolated workloads, by different mechanisms.",
       sequence: "Physical host → virtualization layer → isolated workloads → services.",
       example:
         "One host running several services, each isolated from the others, scaled by adding more workloads.",
@@ -268,7 +268,9 @@ export default function Home() {
       {/* Decided hero lockup (blueprint §4.1, proposal §1.1): H1 is the Atlas
           name only; the positioning line directly beneath is the decided
           positioning string as real HTML text, never baked into an image;
-          the supporting sentence is DRAFT copy and is labelled as such. */}
+          the supporting sentence text is not yet finalized copy, and no
+          draft or editorial label is rendered for it (owner final copy
+          still owed; see the audit-corrections acceptance report). */}
       <p className="eyebrow">Cross-industry technology and economic knowledge</p>
       <h1 className="hero-h1">Aravind Systems Atlas</h1>
       <p className="positioning">
@@ -277,7 +279,6 @@ export default function Home() {
       <p className="description">
         Explore how computing systems, infrastructure, businesses and industries connect across the
         global digital economy.
-        <span className="draft-note">Draft wording</span>
       </p>
       <div className="hero-actions">
         <Link className="btn" href="#journey">

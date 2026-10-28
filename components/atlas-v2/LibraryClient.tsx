@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { displayTitle } from "@/lib/atlas-v2/display-title";
@@ -48,6 +48,13 @@ function LibraryInner({ rows }: { rows: LibraryRow[] }) {
     return list;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rows, domain, query, sort]);
+  // With JavaScript, the interactive list below replaces the
+  // server-rendered sibling list (audit-corrections 2026-10-28): hide
+  // the server list on mount so JS users see exactly one list. Without
+  // JavaScript this effect never runs and the server list stays visible.
+  useEffect(() => {
+    document.getElementById("library-server-list")?.setAttribute("hidden", "");
+  }, []);
   return (
     <div style={{ fontFamily: "Inter,system-ui,sans-serif", maxWidth: 1100, margin: "0 auto", padding: "16px" }}>
       <p><Link href="/">Home</Link> / Library</p>

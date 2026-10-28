@@ -80,7 +80,7 @@ export const EXPLORER_VIEWS: ExplorerView[] = [
         },
         relatedChapters: [NIC],
         limitation:
-          "Discovery is init-time, not per-request. A device can be present yet unusable without a matching driver.",
+          "PCI-specific scope: lspci covers PCI and PCIe devices only. It does not cover USB or virtual interfaces. Discovery is init-time, not per-request. A device can be present yet unusable without a matching driver.",
       },
       {
         id: "s2",
@@ -95,7 +95,7 @@ export const EXPLORER_VIEWS: ExplorerView[] = [
         },
         relatedChapters: [NIC],
         limitation:
-          "Binding needs a matching driver. No driver line means a driver or firmware problem, not a cable problem — check vendor support and firmware, which this Explorer does not cover.",
+          "Binding needs a matching driver. No driver line means a driver or firmware problem, not a cable problem — check vendor support and firmware, which this Explorer does not cover. PCI-specific: this step covers PCI devices only; USB and virtual interfaces are out of scope here.",
       },
       {
         id: "s3",
@@ -132,15 +132,15 @@ export const EXPLORER_VIEWS: ExplorerView[] = [
         label: "Readiness",
         purpose: "The host is ready to send traffic.",
         whatHappens:
-          "Link up, address assigned, and default route present together mean the preconditions for an outbound request are met. Readiness is checked once as a precondition, not repeated per request.",
+          "Link up, address assigned, and default route present together are typical preconditions for an outbound Internet-bound request via a gateway. They are not universal prerequisites: link-local, on-link, and IPv6 configurations differ. Readiness is checked once as a precondition, not repeated per request.",
         inspect: {
           command: "ip link show; ip route show default",
-          expected: "The interface UP with LOWER_UP, and a default route line. Both must be present for the readiness claim.",
+          expected: "The interface UP with LOWER_UP, and a default route line. Both are expected for the gateway-bound readiness claim; they are not required for link-local or on-link traffic.",
           safety: "Read-only: reports state only, changes nothing.",
         },
         relatedChapters: [NIC],
         limitation:
-          "A ready host can still fail later steps: DNS resolution, TLS negotiation, or server errors are separate layers with their own failures.",
+          "A ready host can still fail later steps: DNS resolution, TLS negotiation, or server errors are separate layers with their own failures. Readiness here means gateway-bound readiness: link-local, on-link, and IPv6 configurations have different prerequisites, so a missing default route alone does not prove a host cannot communicate locally.",
       },
     ],
     edges: [
@@ -278,7 +278,7 @@ export const EXPLORER_VIEWS: ExplorerView[] = [
         },
         relatedChapters: [NIC],
         limitation:
-          "A bound driver can still be buggy or misconfigured, and a device hidden by virtualization may not appear here at all.",
+          "A bound driver can still be buggy or misconfigured, and a device hidden by virtualization may not appear here at all. PCI-specific: this lspci check covers PCI devices only; USB and virtual interfaces are out of scope here.",
       },
       {
         id: "t3",

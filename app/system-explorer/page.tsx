@@ -349,6 +349,19 @@ export default function SystemExplorerPage() {
             own values, and never run a command you do not understand.
           </li>
           <li>
+            <strong>PCI-specific discovery.</strong> The lspci steps
+            cover PCI and PCIe devices only. They do not cover USB or
+            virtual interfaces; a device of another kind will not appear
+            in lspci output.
+          </li>
+          <li>
+            <strong>Readiness is gateway-bound, not universal.</strong>{" "}
+            An address plus a default route are typical preconditions for
+            outbound Internet-bound requests via a gateway. Link-local,
+            on-link, and IPv6 configurations differ, so this readiness
+            claim does not apply to all traffic.
+          </li>
+          <li>
             <strong>No original-note provenance.</strong> Nothing on
             this page is presented as verified by the original
             handwritten notes (0 verified / 5 candidates / 26
