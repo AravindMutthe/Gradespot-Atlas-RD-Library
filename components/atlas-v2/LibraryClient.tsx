@@ -51,7 +51,6 @@ function LibraryInner({ rows }: { rows: LibraryRow[] }) {
   return (
     <div style={{ fontFamily: "Inter,system-ui,sans-serif", maxWidth: 1100, margin: "0 auto", padding: "16px" }}>
       <p><Link href="/">Home</Link> / Library</p>
-      <h1 style={{ color: "var(--heading, #12243A)" }}>Library — all {rows.length} chapters</h1>
       <p style={{ border: "1px solid var(--teal)", background: "var(--surface)", color: "var(--ink)", borderRadius: 12, padding: "10px 14px" }}>
         <strong>Grouping: configurable / pending reconciliation.</strong> Chapters are grouped here
         by the verified master domains from release v1-consolidated-001. This grouping is a

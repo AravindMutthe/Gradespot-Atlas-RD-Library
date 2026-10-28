@@ -74,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+        <a className="skip-link" href="#main">Skip to main content</a>
         <header className="site-header">
           <Link className="brand" href="/">
             Aravind Systems Atlas
@@ -85,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ThemeToggle />
           <HeaderSearch />
         </header>
-        <main className="site-main">
+        <main id="main" className="site-main">
           {children}
           <footer className="site-footer">
             <p>Original research: Aravind Mutthe · Aravind Systems Atlas · © 2026 · All rights reserved unless explicitly licensed otherwise.</p>

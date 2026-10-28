@@ -1,1 +1,27 @@
-{"dependencies":{"@fontsource/inter":"^5.3.0","@fontsource/source-serif-4":"^5.3.1","next":"15.5.27","react":"^19.1.1","react-dom":"^19.1.1"},"devDependencies":{"@types/node":"^26.6.4","@types/react":"^19.3.0","@types/react-dom":"^19.3.0","typescript":"^5.9.3"},"name":"aravind-systems-atlas","private":true,"scripts":{"build":"next build","dev":"next dev","start":"next start"},"version":"1.0.0"}
+{
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/source-serif-4": "^5.3.1",
+    "next": "15.5.27",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^5.9.3"
+  },
+  "name": "aravind-systems-atlas",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "postbuild": "node scripts/clearance.js out",
+    "clearance": "node scripts/clearance.js out",
+    "js-budget": "node scripts/js-budget.js out",
+    "a11y-check": "node scripts/a11y-check.js out",
+    "dev": "next dev",
+    "start": "next start"
+  },
+  "version": "1.0.0"
+}

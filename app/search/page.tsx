@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 export default function SearchPage() {
   return (
     <>
+      <h1 style={{ fontFamily: "\"Source Serif 4\", Georgia, serif", color: "var(--heading)" }}>Search the Atlas</h1>
       <SearchClient />
       <noscript>
         <p>

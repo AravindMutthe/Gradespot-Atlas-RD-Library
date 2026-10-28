@@ -71,8 +71,9 @@ export default function AboutPage() {
           explicitly unresolved: the consolidated chapter data totals 1,040
           paragraphs against the release accounting of 733 + 283 = 1,016.
           Neither figure is silently chosen; the migration preserves the
-          chapter data exactly. The full rules live on the{" "}
-          <Link href="/sources">Sources</Link> page.
+          chapter data exactly. The full rules for sources live in the
+          Sources section, which is gated and not published in initial v2.0
+          scope.
         </p>
       </section>
       <section className="panel">
@@ -95,9 +96,9 @@ export default function AboutPage() {
         <p>
           Start reading: <Link href="/learning-paths">Choose your learning path</Link>
           {" · "}
-          <Link href="/explore">System Explorer</Link>
+          <Link href="/system-explorer">System Explorer</Link>
           {" · "}
-          <Link href="/sources">Sources</Link>
+          Sources (gated)
         </p>
       </section>
     </>

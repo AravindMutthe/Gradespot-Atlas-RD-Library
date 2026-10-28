@@ -16,6 +16,8 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--canvas);color:var(--ink);font:16px/1.7 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
 a{color:var(--blue)}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:#12243A;color:#F7F8F6;padding:12px 16px;min-height:44px;display:flex;align-items:center}
+.skip-link:focus-visible{left:8px;top:8px;outline:3px solid var(--blue);outline-offset:2px}
 button{font:inherit;cursor:pointer}
 img{max-width:100%}
 main{overflow-wrap:break-word}

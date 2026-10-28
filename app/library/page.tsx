@@ -23,7 +23,15 @@ export default function LibraryPage() {
       <p style={{ fontSize: "0.85rem", color: "var(--muted)", textAlign: "center" }}>
         Release {ATLAS_V2_RELEASE.contentRelease} · version {ATLAS_V2_RELEASE.version} · {ATLAS_V2_CHAPTERS.length} chapters
       </p>
+      <h1 style={{ color: "var(--heading, #12243A)", textAlign: "center" }}>Library — all {ATLAS_V2_CHAPTERS.length} chapters</h1>
       <LibraryClient rows={rows} />
+      <noscript>
+        <p>
+          The filterable chapter list needs JavaScript (it reads the page
+          address to pre-select a domain). Without JavaScript, every chapter
+          is still listed in the <a href="/sitemap.xml">sitemap</a>.
+        </p>
+      </noscript>
     </>
   );
 }

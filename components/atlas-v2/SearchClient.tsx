@@ -96,7 +96,6 @@ function SearchInner() {
   return (
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", maxWidth: 900, margin: "0 auto", padding: 16 }}>
       <p><Link href="/">Home</Link> / <Link href="/library">Library</Link> / Search</p>
-      <h1 style={{ fontFamily: "\"Source Serif 4\", Georgia, serif", color: "var(--heading)" }}>Search the Atlas</h1>
       <p>Build-time full-text search over verified titles, headings and body content (57 chapters, release v1-consolidated-001). No external service, no vector database.</p>
       <form action="/search" method="get" role="search" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <label htmlFor="search-q" style={{ position: "absolute", left: "-9999px" }}>Search query</label>

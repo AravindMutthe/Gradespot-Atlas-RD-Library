@@ -28,6 +28,7 @@ export default function LearningPathsPage() {
         consolidated master — no mockup or example title has been turned into
         a chapter, and no chapter has been invented for a path.
       </p>
+      <h2>Choose a path</h2>
       <div className="grid" id="chooser">
         {paths.map((p) => (
           <Link key={p.id} className="card" href={`#path-${p.id}`}>
