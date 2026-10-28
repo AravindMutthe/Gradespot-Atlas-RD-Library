@@ -80,7 +80,7 @@ function Diagram({ view }: { view: ExplorerView }) {
                 y={y(i)}
                 width={boxW}
                 height={boxH}
-                rx={10}
+                rx={12}
                 fill="#FFFFFF"
                 stroke="#12243A"
                 strokeWidth={1.5}

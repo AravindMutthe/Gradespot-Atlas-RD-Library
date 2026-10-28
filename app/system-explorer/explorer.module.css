@@ -12,8 +12,8 @@
 .viewNav a {
   border: 1px solid var(--navy);
   background: var(--surface);
-  color: var(--navy);
-  border-radius: 10px;
+  color: var(--heading);
+  border-radius: 12px;
   padding: 10px 16px;
   text-decoration: none;
   display: inline-flex;
@@ -24,7 +24,7 @@
 }
 
 .viewNav a:hover {
-  background: #edf5ff;
+  background: var(--line);
 }
 
 .tierGrid {
@@ -59,7 +59,7 @@
 .cmdBlock {
   background: var(--dark);
   color: var(--dark-ink);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 12px 16px;
   margin: 12px 0;
   overflow-x: auto;
@@ -91,7 +91,7 @@
 
 .edgeTable th {
   background: var(--navy);
-  color: var(--canvas);
+  color: #F7F8F6;
 }
 
 @media (max-width: 520px) {
@@ -117,3 +117,9 @@
   display: inline-flex;
   align-items: center;
 }
+
+/* Phase 1 audit fix: the SVG diagram sits on a fixed light card in both
+   modes, so its light-designed navy/teal strokes stay readable in dark
+   mode; the caption uses fixed muted text for the same reason. */
+.svgWrap{background:#F7F8F6;border:1px solid var(--line);border-radius:12px;padding:12px}
+.svgWrap figcaption{color:#475569}

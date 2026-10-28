@@ -1,9 +1,8 @@
 /* Atlas Advanced V1 design system — Step 1 (DES-02).
    Candidate tokens (contrast-verified for the pairs listed in the Step 1
-   report; palette remains a candidate system pending owner confirmation):
+   report; palette adopted by delegation (D-07):
    navy #12243A, blue #2463A6, teal #087F83, canvas #F7F8F6, dark #101B2B.
-   Teal is used for borders/accents and large text only — never small text
-   alone on dark backgrounds (3.60 on #101B2B, below AA normal).
+   Teal is used for borders/accents only — never as text (binding D-07 rule; dark teal 3.60 fails AA normal).
    Fonts are self-hosted via @fontsource (OFL-1.1, locally bundled,
    no runtime network use) — wired in Phase 1 Commit C (G-12). */
 :root{
@@ -23,11 +22,11 @@ main{overflow-wrap:break-word}
 /* Global header: compact brand + single navigation (DES-03). System
    Explorer is NOT listed until its route exists (Step 3) — planned
    features must not appear as functional destinations before they exist. */
-.site-header{position:sticky;top:0;z-index:10;background:var(--navy);color:var(--canvas);padding:14px 4vw;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.brand{font-weight:800;letter-spacing:-.4px;font-size:19px;color:var(--canvas);text-decoration:none;line-height:1.2}
+.site-header{position:sticky;top:0;z-index:10;background:var(--navy);color:#F7F8F6;padding:14px 4vw;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:-.4px;font-size:19px;color:#F7F8F6;text-decoration:none;line-height:1.2}
 .brand small{display:block;font-size:11px;font-weight:400;color:#C7D6DE}
 .site-nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
-.site-nav a{color:var(--canvas);text-decoration:none;padding:12px 10px;border-radius:12px;min-height:44px;display:inline-flex;align-items:center;font-size:14px}
+.site-nav a{color:#F7F8F6;text-decoration:none;padding:12px 10px;border-radius:12px;min-height:44px;display:inline-flex;align-items:center;font-size:14px}
 .site-nav a:hover{background:#1E3A56}
 .site-search{margin-left:auto;display:flex;gap:6px}
 .site-search input{padding:8px 10px;border-radius:12px;border:1px solid #416172;font:inherit;min-width:180px}

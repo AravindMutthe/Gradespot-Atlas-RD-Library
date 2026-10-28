@@ -58,18 +58,18 @@ function SearchInner() {
     return scored.sort((a, b) => b.score - a.score || a.title.localeCompare(b.title)).slice(0, 50);
   }, [index, tokens]);
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", maxWidth: 900, margin: "0 auto", padding: 16 }}>
+    <div style={{ fontFamily: "Inter, system-ui, sans-serif", maxWidth: 900, margin: "0 auto", padding: 16 }}>
       <p><Link href="/">Home</Link> / <Link href="/library">Library</Link> / Search</p>
-      <h1 style={{ fontFamily: "Georgia, serif", color: "#10233f" }}>Search the Atlas</h1>
+      <h1 style={{ fontFamily: "\"Source Serif 4\", Georgia, serif", color: "var(--heading)" }}>Search the Atlas</h1>
       <p>Build-time full-text search over verified titles, headings and body content (57 chapters, release v1-consolidated-001). No external service, no vector database.</p>
       <form action="/search" method="get" role="search" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <label htmlFor="search-q" style={{ position: "absolute", left: "-9999px" }}>Search query</label>
         <input id="search-q" name="q" type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Try: memory, NIC packet, Linux kernel, market integration…" autoFocus
-          style={{ flex: "1 1 280px", padding: "10px 12px", borderRadius: 8, border: "1px solid #94a3b8", fontSize: "1rem" }} />
-        <button type="submit" style={{ padding: "10px 18px", borderRadius: 8, border: "1px solid #94a3b8", background: "#10233f", color: "#fff", cursor: "pointer" }}>Search</button>
+          style={{ flex: "1 1 280px", padding: "10px 12px", borderRadius: 12, border: "1px solid var(--line)", background: "var(--surface)", color: "var(--ink)", fontSize: "1rem" }} />
+        <button type="submit" style={{ padding: "10px 18px", borderRadius: 12, border: "1px solid var(--line)", background: "#1E3A56", color: "#fff", cursor: "pointer" }}>Search</button>
       </form>
-      <p style={{ fontSize: "0.9rem", color: "#475569" }}>This results page has its own shareable URL: <code>/search?q=…</code> — the query stays in the address bar.</p>
-      {error ? <p role="alert" style={{ border: "1px solid #b91c1c", background: "#fef2f2", borderRadius: 8, padding: "12px 14px" }}>Search is unavailable right now: the index could not be loaded ({error}). Try reloading the page; the library and chapter pages still work.</p> : null}
+      <p style={{ fontSize: "0.9rem", color: "var(--muted)" }}>This results page has its own shareable URL: <code>/search?q=…</code> — the query stays in the address bar.</p>
+      {error ? <p role="alert" style={{ border: "1px solid var(--warn-line)", background: "var(--warn-bg)", color: "var(--warn-ink)", borderRadius: 12, padding: "12px 14px" }}>Search is unavailable right now: the index could not be loaded ({error}). Try reloading the page; the library and chapter pages still work.</p> : null}
       {!error && tokens.length === 0 ? <p>Enter a query above. Example queries: <Link href="/search?q=memory">memory</Link>, <Link href="/search?q=NIC%20packet">NIC packet</Link>, <Link href="/search?q=Linux%20kernel">Linux kernel</Link>, <Link href="/search?q=market%20integration">market integration</Link>.</p> : null}
       {!error && index && tokens.length > 0 ? (
         <div aria-live="polite">
@@ -77,9 +77,9 @@ function SearchInner() {
           {hits.length === 0 ? <p>Try a broader term (for example “network” instead of a specific product name), or browse the <Link href="/library">library by domain</Link>.</p> : null}
           <ol style={{ padding: 0, listStyle: "none" }}>
             {hits.map((h) => (
-              <li key={h.slug} style={{ border: "1px solid #cbd5e1", borderRadius: 10, padding: "14px", margin: "10px 0", background: "#fff" }}>
-                <h2 style={{ margin: "0 0 4px", fontSize: "1.05rem" }}><Link href={`/${h.slug}`} style={{ color: "#1d4ed8", overflowWrap: "anywhere" }}>{highlight(h.title, tokens)}</Link></h2>
-                <p style={{ margin: "4px 0", fontSize: "0.85rem", color: "#475569" }}>{h.proposedDomain}</p>
+              <li key={h.slug} style={{ border: "1px solid var(--line)", borderRadius: 12, padding: "14px", margin: "10px 0", background: "var(--surface)", color: "var(--ink)" }}>
+                <h2 style={{ margin: "0 0 4px", fontSize: "1.05rem" }}><Link href={`/${h.slug}`} style={{ color: "var(--blue)", overflowWrap: "anywhere" }}>{highlight(h.title, tokens)}</Link></h2>
+                <p style={{ margin: "4px 0", fontSize: "0.85rem", color: "var(--muted)" }}>{h.proposedDomain}</p>
                 <p style={{ margin: "4px 0" }}>{highlight(h.snippet, tokens)}</p>
               </li>
             ))}
