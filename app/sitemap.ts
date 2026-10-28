@@ -3,9 +3,9 @@ import type { MetadataRoute } from "next";
 export const dynamic = "force-static";
 import { ATLAS_V2_CHAPTERS } from "@/lib/atlas-v2/chapters";
 
-// Sitemap (v2.0 initial scope, Phase 2): lists every public route this
+// Sitemap (v2.0 initial scope, Phases 2 + 5): lists every public route this
 // branch actually serves — home, System Explorer, Library, Learning Paths,
-// Search, About, Timelines, Diagrams, Corrections, and all 57 chapter
+// Search, About, Timelines, Diagrams, Corrections, Workspace, and all 57 chapter
 // slugs — with trailing-slash canonicals matching the static-export layout.
 // Routes NOT listed because they do not exist in initial scope: /explore
 // (removed, G-03 — Explorer lives only at /system-explorer), /sources
@@ -16,7 +16,7 @@ import { ATLAS_V2_CHAPTERS } from "@/lib/atlas-v2/chapters";
 // already listed once, as its chapter URL — they add 0 distinct sitemap
 // URLs. Canonical metadata is not a functioning HTTP redirect, and no
 // redirect is claimed or implemented (static export serves each URL
-// directly). Inventory: 9 static routes + 57 chapter URLs = 66 sitemap
+// directly). Inventory: 10 static routes + 57 chapter URLs = 67 sitemap
 // URLs.
 const BASE = process.env.ATLAS_BASE_URL ?? "https://aravind-systems-atlas.vercel.app";
 
@@ -30,6 +30,7 @@ const STATIC_ROUTES: { path: string; changeFrequency: "weekly" | "monthly"; prio
   { path: "timelines", changeFrequency: "weekly", priority: 0.8 },
   { path: "diagrams", changeFrequency: "weekly", priority: 0.8 },
   { path: "corrections", changeFrequency: "monthly", priority: 0.5 },
+  { path: "workspace", changeFrequency: "monthly", priority: 0.5 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

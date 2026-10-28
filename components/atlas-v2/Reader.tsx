@@ -96,7 +96,21 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
     const onScroll = () => {
       const h = document.documentElement;
       const max = h.scrollHeight - h.clientHeight;
-      setProgress(max > 0 ? Math.min(100, Math.round((h.scrollTop / max) * 100)) : 0);
+      const pct = max > 0 ? Math.min(100, Math.round((h.scrollTop / max) * 100)) : 0;
+      setProgress(pct);
+      // Persist furthest scroll depth (Phase 5): write only when depth
+      // rises by 5 points or reaches 100, so scrolling does not spam
+      // storage writes. Failures are silent; the workspace page simply
+      // shows no progress for this chapter.
+      try {
+        const raw = window.localStorage.getItem("atlas-v2-reading-progress");
+        const map = (raw ? JSON.parse(raw) : {}) as Record<string, { percent: number; updatedAt: string }>;
+        const prev = typeof map[chapter.slug]?.percent === "number" ? map[chapter.slug].percent : 0;
+        if (pct === 100 || pct - prev >= 5) {
+          map[chapter.slug] = { percent: pct, updatedAt: new Date().toISOString() };
+          window.localStorage.setItem("atlas-v2-reading-progress", JSON.stringify(map));
+        }
+      } catch { /* ignore */ }
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -242,6 +256,7 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
             {bookmarks.filter((b) => b.slug === chapter.slug).length > 0 ? (
               <ul>{bookmarks.filter((b) => b.slug === chapter.slug).map((b) => <li key={b.anchor}><a href={`#${b.anchor}`}>{b.heading}</a></li>)}</ul>
             ) : <p>No bookmarks yet — use “Bookmark section” beside any section heading. Bookmarks live only in this browser.</p>}
+            <p><Link href="/workspace">Manage all bookmarks and reading progress in your workspace</Link> — no account needed.</p>
           </section>
           <section id="related">
             <h2>Related chapters</h2>

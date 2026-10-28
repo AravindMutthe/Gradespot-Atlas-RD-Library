@@ -444,6 +444,10 @@ export default function Home() {
             </p>
           </div>
         </div>
+        <p>
+          Your workspace — section bookmarks and reading progress, saved only in this
+          browser, no account needed: <Link href="/workspace">Open your workspace</Link>.
+        </p>
       </section>
 
       <section aria-labelledby="library-invite-title">
