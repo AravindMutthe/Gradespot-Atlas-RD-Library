@@ -199,11 +199,8 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
           ))) : null}
           <section id="original-notes">
             <h2>Original notes</h2>
-            <p>Scans are shown as a gallery: the master does not record where each scan falls in the text, so no interleaving is invented. Files are linked by filename. <strong>SHA verification is not claimed</strong> — recorded master SHAs are known not to match the stored files, so no SHA is displayed as proof.</p>
             {chapter.originalNotes.length > 0 ? (
-              <div className={styles.gallery}>{chapter.originalNotes.map((f) => (
-                <figure key={f}><img src={`/atlas-images/${encodeURIComponent(f)}`} alt={`Original note scan ${f}`} loading="lazy" /><figcaption>{f}</figcaption></figure>
-              ))}</div>
+              <p>This chapter references {chapter.originalNotes.length} original-note file{chapter.originalNotes.length === 1 ? "" : "s"} by filename in the master. They are not yet published here: no scans are reproduced in this build, so no images are shown. <strong>SHA verification is not claimed</strong> — recorded master SHAs are known not to match the stored files, so no SHA is displayed as proof.</p>
             ) : <p>No original-note scans recorded for this chapter in the master (shown as missing, not guessed).</p>}
           </section>
           <section id="bookmarks">
@@ -232,7 +229,6 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
             {toc.map((t) => <a key={t.id} href={`#${t.id}`}>{t.h2}</a>)}
             {chapter.diagrams.length > 0 ? <a href="#diagrams">Diagrams</a> : null}
             {chapter.tables.length > 0 ? <a href="#tables">Tables</a> : null}
-            <a href="#original-notes">Original notes</a>
             <a href="#related">Related chapters</a>
           </nav>
         </aside>
