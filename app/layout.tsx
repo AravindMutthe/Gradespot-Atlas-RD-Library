@@ -9,6 +9,7 @@ import "@fontsource/source-serif-4/700.css";
 import Link from "next/link";
 import { ATLAS_V2_CHAPTERS, ATLAS_V2_RELEASE } from "@/lib/atlas-v2/chapters";
 import "./globals.css";
+import ThemeToggle from "@/components/atlas-v2/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Aravind Systems Atlas",
@@ -60,12 +61,18 @@ function NavItems() {
   );
 }
 
+// Theme init (Phase 1 Commit D): runs before first paint so the stored
+// or system theme applies without a flash. No-JS clients never run this
+// and fall back to the CSS prefers-color-scheme block in globals.css.
+const THEME_INIT = `(function(){try{var t=localStorage.getItem("atlas-theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t}else{document.documentElement.dataset.theme=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}}catch(e){}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const diagrams = ATLAS_V2_CHAPTERS.reduce((n, c) => n + c.diagrams.length, 0);
   const tables = ATLAS_V2_CHAPTERS.reduce((n, c) => n + c.tables.length, 0);
   return (
     <html lang="en">
       <body>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         <header className="site-header">
           <Link className="brand" href="/">
             Aravind Systems Atlas
@@ -74,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <nav className="site-nav" aria-label="Global">
             <NavItems />
           </nav>
+          <ThemeToggle />
           <form className="site-search" action="/search" method="get" role="search">
             <label htmlFor="site-search" className="sr-only" style={{ position: "absolute", left: "-9999px" }}>
               Search the Atlas
