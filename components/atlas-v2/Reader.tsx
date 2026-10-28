@@ -2,9 +2,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { AtlasV2Chapter } from "@/lib/atlas-v2/chapters";
+import { displayTitle } from "@/lib/atlas-v2/display-title";
 import styles from "./reader.module.css";
 
-export interface RelatedResolved { slug: string; title: string; proposedDomain: string; evidence: string; detail: string; }
+export interface RelatedResolved { slug: string; title: string; proposedDomain: string; sourceDomain: string; evidence: string; detail: string; }
 export interface ChapterLite { slug: string; title: string; proposedDomain: string; }
 
 function anchorId(text: string, i: number): string {
@@ -25,13 +26,32 @@ function writeJson(key: string, value: unknown): boolean {
   try { window.localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; }
 }
 
+// Evidence labels (Phase 2, G-08): chapter-link is the only VERIFIED
+// relation (the chapter's own list). shared-concept and same-domain are
+// DERIVED and labelled "Discovery suggestion" — never verified. Same-domain
+// suggestions are re-based on the VERIFIED master domain, never the
+// proposed grouping (G-05). Stored detail strings are not rendered: labels
+// below are computed so no stale "proposed domain" wording can surface.
+const SOURCE_DOMAIN_LABELS: Record<string, string> = {
+  "institutions-markets": "Institutions & Markets",
+  "hardware-computing": "Hardware & Computing",
+  "infrastructure-operations": "Infrastructure & Operations",
+  "systems-evolution": "Systems Evolution",
+  "industrial-business-networks": "Industrial & Business Networks",
+};
+function relatedLabel(r: RelatedResolved): string {
+  if (r.evidence === "chapter-link") return "Verified related — named by this chapter's own list.";
+  if (r.evidence === "shared-concept") return "Discovery suggestion — both chapters appear under one concept in the concepts index.";
+  return `Discovery suggestion — same verified domain (${SOURCE_DOMAIN_LABELS[r.sourceDomain] ?? r.sourceDomain}) — grouping only, not an editorial link.`;
+}
+
 export default function Reader({ chapter, prev, next, related, all, proposedDomain, sourceDomain, flagged }:
   { chapter: AtlasV2Chapter; prev: ChapterLite | null; next: ChapterLite | null; related: RelatedResolved[]; all: ChapterLite[]; proposedDomain: string; sourceDomain: string; flagged: boolean; }) {
   const [mode, setMode] = useState<"learn" | "reference">("learn");
   const [fontStep, setFontStep] = useState(1);
   const [lineHeight, setLineHeight] = useState<"comfortable" | "compact">("comfortable");
   const [fontFamily, setFontFamily] = useState<"serif" | "sans">("serif");
-  const [dark, setDark] = useState(false);
+  const [lineWidth, setLineWidth] = useState<"narrow" | "standard" | "wide">("standard");
   const [expandAll, setExpandAll] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -59,7 +79,7 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
       if (typeof prefs.fontStep === "number") setFontStep(prefs.fontStep);
       if (prefs.lineHeight === "compact" || prefs.lineHeight === "comfortable") setLineHeight(prefs.lineHeight);
       if (prefs.fontFamily === "sans" || prefs.fontFamily === "serif") setFontFamily(prefs.fontFamily);
-      if (typeof prefs.dark === "boolean") setDark(prefs.dark);
+      if (prefs.lineWidth === "narrow" || prefs.lineWidth === "standard" || prefs.lineWidth === "wide") setLineWidth(prefs.lineWidth);
     }
     const bm = readJson("atlas-v2-bookmarks");
     if (Array.isArray(bm)) setBookmarks(bm.filter((b) => b && typeof b.slug === "string"));
@@ -76,8 +96,8 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
   }, []);
 
   useEffect(() => {
-    if (!writeJson("atlas-v2-reader-prefs", { mode, fontStep, lineHeight, fontFamily, dark })) setStorageFailed(true);
-  }, [mode, fontStep, lineHeight, fontFamily, dark]);
+    if (!writeJson("atlas-v2-reader-prefs", { mode, fontStep, lineHeight, fontFamily, lineWidth })) setStorageFailed(true);
+  }, [mode, fontStep, lineHeight, fontFamily, lineWidth]);
 
   useEffect(() => {
     if (pendingAnchor.current) {
@@ -96,7 +116,7 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
     if (!writeJson("atlas-v2-bookmarks", nextBm)) setStorageFailed(true);
   };
   const fontSize = ["100%", "112%", "125%", "140%"][fontStep] ?? "112%";
-  const wrapClass = `${styles.wrap} ${fontFamily === "sans" ? styles.wrapSans : ""} ${dark ? styles.wrapDark : ""}`;
+  const wrapClass = `${styles.wrap} ${fontFamily === "sans" ? styles.wrapSans : ""}`;
 
   const renderPara = (p: string, key: number) => {
     const cls = p.includes("→") ? styles.stepflow : undefined;
@@ -147,11 +167,11 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
         <div id="atlas-drawer" className={styles.drawer} role="dialog" aria-label="All chapters">
           <button type="button" className={styles.btn} onClick={() => setDrawer(false)}>Close ✕</button>
           <h2>All 57 chapters</h2>
-          {all.map((c) => <Link key={c.slug} href={`/${c.slug}`} onClick={() => setDrawer(false)}>{c.title}</Link>)}
+          {all.map((c) => <Link key={c.slug} href={`/${c.slug}`} onClick={() => setDrawer(false)}>{displayTitle(c.title)}</Link>)}
         </div>
       </>) : null}
       {storageFailed ? <p className={styles.notice} role="status">Browser storage is unavailable, so bookmarks and font settings will last only for this visit. Reading itself is unaffected.</p> : null}
-      <p className={styles.crumbs}><Link href="/">Home</Link> / <Link href="/library">Library</Link> / {chapter.title}</p>
+      <p className={styles.crumbs}><Link href="/">Home</Link> / <Link href="/library">Library</Link> / {displayTitle(chapter.title)}</p>
       <div className={styles.controls} aria-label="Reader controls">
         <label htmlFor="mode">Reading mode</label>
         <select id="mode" value={mode} onChange={(e) => handleMode(e.target.value as "learn" | "reference")}>
@@ -170,19 +190,22 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
         <select id="font-family" value={fontFamily} onChange={(e) => setFontFamily(e.target.value as "serif" | "sans")}>
           <option value="serif">Serif</option><option value="sans">Sans-serif</option>
         </select>
-        <button type="button" className={styles.btn} onClick={() => setDark(!dark)} aria-pressed={dark}>{dark ? "☀ Light theme" : "🌙 Dark theme"}</button>
+        <label htmlFor="line-width">Line width</label>
+        <select id="line-width" value={lineWidth} onChange={(e) => setLineWidth(e.target.value as "narrow" | "standard" | "wide")}>
+          <option value="narrow">Narrow (62 chars)</option><option value="standard">Standard (72 chars)</option><option value="wide">Wide (84 chars)</option>
+        </select>
         {mode === "learn" ? <button type="button" className={styles.btn} onClick={() => setExpandAll(!expandAll)}>{expandAll ? "Collapse technical detail" : "Expand all technical detail"}</button> : null}
         <span className={styles.progressText} aria-live="polite">{progress}% read</span>
       </div>
       <div className={styles.layout}>
         <aside className={styles.sideCol} aria-label="Chapter navigation">
           <h2>Chapters</h2>
-          {all.map((c) => <Link key={c.slug} href={`/${c.slug}`} aria-current={c.slug === chapter.slug ? "page" : undefined} style={c.slug === chapter.slug ? { fontWeight: 700 } : undefined}>{c.title}</Link>)}
+          {all.map((c) => <Link key={c.slug} href={`/${c.slug}`} aria-current={c.slug === chapter.slug ? "page" : undefined} style={c.slug === chapter.slug ? { fontWeight: 700 } : undefined}>{displayTitle(c.title)}</Link>)}
         </aside>
-        <article className={styles.article} style={{ fontSize, lineHeight: lineHeight === "comfortable" ? 1.75 : 1.5 }}>
+        <article className={styles.article} style={{ fontSize, lineHeight: lineHeight === "comfortable" ? 1.75 : 1.5, maxWidth: lineWidth === "narrow" ? "62ch" : lineWidth === "wide" ? "84ch" : "72ch" }}>
           <p className={styles.meta}>Content release v1-consolidated-001 · version 1.0.0-continuing</p>
-          <h1>{chapter.title}</h1>
-          <p className={styles.lead}>Proposed grouping: {proposedDomain} (proposed, pending reconciliation){flagged ? " · flagged for review" : ""} · Source domain: {sourceDomain} · {chapter.paragraphCount} paragraphs · {chapter.imageCount} images · {chapter.tables.length} tables · {chapter.diagrams.length} diagrams</p>
+          <h1>{displayTitle(chapter.title)}</h1>
+          <p className={styles.lead}>Source domain: {sourceDomain} (verified master) · {chapter.paragraphCount} paragraphs · {chapter.imageCount} images · {chapter.tables.length} tables · {chapter.diagrams.length} diagrams · Proposed grouping (pending reconciliation): {proposedDomain}{flagged ? " · flagged for review" : ""}</p>
           <p className={styles.meta}>Sources: {chapter.sources.length > 0 ? chapter.sources.join(" · ") : "Not recorded in the master (shown as missing, not guessed)."}</p>
           <div className={styles.callout}>
             <strong>How to read this chapter.</strong> Paragraphs beginning “From the original pages” paraphrase the handwritten sources. Paragraphs beginning “Technical expansion and corrections” are editorial explanation, not manuscript text. In Explore &amp; Learn mode the editorial technical paragraphs sit inside “Technical depth” disclosures — expand them any time; nothing is hidden permanently. Technical Reference mode shows everything, including sources, diagrams and original evidence, without collapsing.
@@ -211,15 +234,17 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
           </section>
           <section id="related">
             <h2>Related chapters</h2>
-            <p>Every link below is labelled with its evidence. “Chapter-link” is the chapter’s own list; “shared-concept” means the verified concepts index lists both chapters; “same-domain” is proposed-domain grouping only, not an editorial claim.</p>
-            {related.map((r) => (
-              <div key={r.slug} className={styles.card}><Link href={`/${r.slug}`}>{r.title}</Link><p>{r.proposedDomain} · {r.evidence} — {r.detail}</p></div>
-            ))}
+            <p>Links are labelled by evidence. “Verified related” means the chapter’s own list names the chapter. “Discovery suggestion” means the link is derived (a shared concept, or a shared domain) — a suggestion to explore, not a verified relation. Same-domain suggestions use the VERIFIED master domain, never the proposed grouping.</p>
+            {related.length > 0 ? related.map((r) => (
+              <div key={r.slug} className={styles.card}><Link href={`/${r.slug}`}>{displayTitle(r.title)}</Link><p>{relatedLabel(r)}</p></div>
+            )) : (
+              <div className={styles.card}><p>No related chapters are recorded for this chapter (shown as missing, not guessed). <Link href="/library">Browse the Library</Link> to discover connected chapters.</p></div>
+            )}
           </section>
           <nav className={styles.prevNext} aria-label="Previous and next chapters">
-            {prev ? <Link className={styles.btn} href={`/${prev.slug}`}>← Previous: {prev.title}</Link> : <span />}
+            {prev ? <Link className={styles.btn} href={`/${prev.slug}`}>← Previous: {displayTitle(prev.title)}</Link> : <span />}
             <Link className={styles.btn} href="/library">Library</Link>
-            {next ? <Link className={styles.btn} href={`/${next.slug}`}>Next: {next.title} →</Link> : null}
+            {next ? <Link className={styles.btn} href={`/${next.slug}`}>Next: {displayTitle(next.title)} →</Link> : null}
           </nav>
           <footer className={styles.meta}>Aravind Systems Atlas · release v1-consolidated-001 · Recovered historical exports are partial reconstructions, not verbatim transcripts.</footer>
         </article>
@@ -229,6 +254,8 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
             {toc.map((t) => <a key={t.id} href={`#${t.id}`}>{t.h2}</a>)}
             {chapter.diagrams.length > 0 ? <a href="#diagrams">Diagrams</a> : null}
             {chapter.tables.length > 0 ? <a href="#tables">Tables</a> : null}
+            <a href="#original-notes">Original notes</a>
+            <a href="#bookmarks">Bookmarks</a>
             <a href="#related">Related chapters</a>
           </nav>
         </aside>

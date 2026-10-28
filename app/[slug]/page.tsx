@@ -8,6 +8,7 @@ import { ATLAS_V2_BY_SLUG, ATLAS_V2_CHAPTERS } from "@/lib/atlas-v2/chapters";
 import { ATLAS_V2_DOMAIN_MAP } from "@/lib/atlas-v2/domains";
 import { ATLAS_V2_RELATED } from "@/lib/atlas-v2/related";
 import Reader, { type ChapterLite, type RelatedResolved } from "@/components/atlas-v2/Reader";
+import { displayTitle } from "@/lib/atlas-v2/display-title";
 
 export function generateStaticParams() {
   const slugs = new Set<string>([...ATLAS_V2_CHAPTERS.map((c) => c.slug), ...V1_SECTIONS.map((s) => s.slug)]);
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (v2) {
     const first = v2.blocks.flatMap((b) => b.paras)[0] ?? "";
     return {
-      title: `${v2.title} — Aravind Systems Atlas`,
+      title: `${displayTitle(v2.title)} — Aravind Systems Atlas`,
       description: slug === "from-silicon-to-a-working-nic" ? NIC_EDITORIAL_DESCRIPTION : first.slice(0, 160),
       alternates: { canonical: `${BASE}/${slug}/` },
     };
@@ -91,7 +92,9 @@ export default async function SectionPage({ params }: { params: Promise<{ slug: 
     const all: ChapterLite[] = ATLAS_V2_CHAPTERS.map((c) => ({ slug: c.slug, title: c.title, proposedDomain: domainOf[c.slug]?.proposedDomain ?? "Not recorded" }));
     const related: RelatedResolved[] = (ATLAS_V2_RELATED[slug] ?? []).map((r) => ({
       slug: r.slug, title: ATLAS_V2_BY_SLUG[r.slug]?.title ?? r.slug,
-      proposedDomain: domainOf[r.slug]?.proposedDomain ?? "Not recorded", evidence: r.evidence, detail: r.detail,
+      proposedDomain: domainOf[r.slug]?.proposedDomain ?? "Not recorded",
+      sourceDomain: ATLAS_V2_BY_SLUG[r.slug]?.sourceDomain ?? "Not recorded",
+      evidence: r.evidence, detail: r.detail,
     }));
     const prev = vi > 0 ? all[vi - 1] : null;
     const next = vi < all.length - 1 ? all[vi + 1] : null;

@@ -10,7 +10,7 @@
   --canvas:#F7F8F6; --surface:#FFFFFF; --ink:#1E293B; --muted:#475569;
   --line:#D9E1E7; --navy:#12243A; --blue:#2463A6; --teal:#087F83;
   --dark:#101B2B; --dark-ink:#E2E8F0; --dark-link:#93C5FD;
-  --warn-bg:#FFF7E6; --warn-line:#E5D1A6;
+  --warn-bg:#FFF7E6; --warn-line:#E5D1A6; --heading:#12243A; --warn-ink:#78350f;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -38,14 +38,14 @@ main{overflow-wrap:break-word}
 .site-footer nav a{color:var(--muted)}
 /* Hero lockup type scale — DECIDED (DES-02 §7.3). */
 .eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800;color:var(--teal)}
-.hero-h1{font-size:clamp(44px,5vw,60px);line-height:1.1;letter-spacing:-1.2px;margin:13px 0 12px;color:var(--navy)}
-.positioning{font-size:clamp(22px,3vw,28px);line-height:1.3;color:var(--navy);margin:0 0 14px;max-width:760px}
+.hero-h1{font-size:clamp(44px,5vw,60px);line-height:1.1;letter-spacing:-1.2px;margin:13px 0 12px;color:var(--heading)}
+.positioning{font-size:clamp(22px,3vw,28px);line-height:1.3;color:var(--heading);margin:0 0 14px;max-width:760px}
 .description{font-size:17px;line-height:1.65;color:var(--muted);max-width:760px}
-.draft-note{display:inline-block;border:1px solid var(--warn-line);background:var(--warn-bg);border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700;color:#7A5A12;margin-left:6px;vertical-align:middle}
+.draft-note{display:inline-block;border:1px solid var(--warn-line);background:var(--warn-bg);border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700;color:var(--warn-ink);margin-left:6px;vertical-align:middle}
 .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
-h1{font-size:clamp(32px,5vw,44px);line-height:1.15;letter-spacing:-.8px;margin:13px 0 20px;color:var(--navy)}
-h2{font-size:22px;line-height:1.3;color:var(--navy)}
-h3{font-size:16px;margin:0 0 8px;color:var(--navy)}
+h1{font-size:clamp(32px,5vw,44px);line-height:1.15;letter-spacing:-.8px;margin:13px 0 20px;color:var(--heading)}
+h2{font-size:22px;line-height:1.3;color:var(--heading)}
+h3{font-size:16px;margin:0 0 8px;color:var(--heading)}
 .lead{font-size:18px;color:var(--muted);max-width:760px}
 .hero{background:linear-gradient(130deg,#E2F0ED,#E7ECF8 60%,#F7F0DD);border-radius:12px;padding:30px;margin-bottom:22px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
@@ -68,11 +68,11 @@ h3{font-size:16px;margin:0 0 8px;color:var(--navy)}
 .connector{text-align:center;color:var(--teal);font-size:22px}
 .pill{display:inline-block;border:1px solid var(--line);border-radius:30px;padding:4px 10px;font-size:11px;margin:4px;text-decoration:none;background:#fff}
 .atlas-tabs{display:flex;flex-wrap:wrap;gap:8px}
-.atlas-tabs a{border:1px solid #9CBAC2;background:#fff;border-radius:100px;padding:7px 12px;color:var(--navy);text-decoration:none}
+.atlas-tabs a{border:1px solid #9CBAC2;background:#fff;border-radius:100px;padding:7px 12px;color:var(--heading);text-decoration:none}
 .atlas-tabs a:hover{background:#D8F2EF}
 .orig-banner{padding:10px 14px;border:1px solid var(--warn-line);border-radius:12px;background:var(--warn-bg);margin:12px 0}
 .btn{border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:12px;padding:10px 16px;text-decoration:none;display:inline-block;min-height:44px;line-height:1.4}
-.btn-secondary{border:1px solid var(--line);background:var(--surface);color:var(--navy);border-radius:12px;padding:10px 16px;text-decoration:none;display:inline-block;min-height:44px;line-height:1.4}
+.btn-secondary{border:1px solid var(--line);background:var(--surface);color:var(--heading);border-radius:12px;padding:10px 16px;text-decoration:none;display:inline-block;min-height:44px;line-height:1.4}
 @media(max-width:800px){
   .site-header{position:static}
   .site-search{margin-left:0}
@@ -96,7 +96,7 @@ h3{font-size:16px;margin:0 0 8px;color:var(--navy)}
 
 /* Phase 1 (Commit B): Journey-first homepage components. */
 .journey-rail{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 8px;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.journey-rail a{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;color:var(--navy);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;font-weight:600}
+.journey-rail a{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;color:var(--heading);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;font-weight:600}
 .journey-rail a:hover{border-color:var(--teal)}
 .beat{border-top:2px solid var(--teal);margin-top:34px;padding-top:10px}
 .beat:target{outline:3px solid var(--blue);outline-offset:6px}
@@ -120,7 +120,7 @@ h3{font-size:16px;margin:0 0 8px;color:var(--navy)}
 .source-context{font-size:13px;color:var(--muted)}
 .desk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
 .desk-grid .panel{margin:0}
-.archive-status{border-top:2px solid var(--navy);margin-top:34px;padding-top:10px}
+.archive-status{border-top:2px solid var(--line);margin-top:34px;padding-top:10px}
 @media(max-width:520px){
   .diagram-layers div{grid-template-columns:1fr}
 }
@@ -141,12 +141,12 @@ h3{font-size:16px;margin:0 0 8px;color:var(--navy)}
 .theme-toggle{border:1px solid #416172;background:#16364A;color:#fff;border-radius:12px;padding:8px 12px;min-height:44px}
 html[data-theme="dark"]{
   --canvas:#101B2B; --surface:#1A2E45; --ink:#E2E8F0; --muted:#A9B8C6;
-  --line:#2C4258; --blue:#93C5FD; --warn-bg:#2A2410; --warn-line:#8A6D3B;
+  --line:#2C4258; --blue:#93C5FD; --warn-bg:#2A2410; --warn-line:#8A6D3B; --heading:#E2E8F0; --warn-ink:#E8C87A;
 }
 @media (prefers-color-scheme: dark){
   html:not([data-theme]){
     --canvas:#101B2B; --surface:#1A2E45; --ink:#E2E8F0; --muted:#A9B8C6;
-    --line:#2C4258; --blue:#93C5FD; --warn-bg:#2A2410; --warn-line:#8A6D3B;
+    --line:#2C4258; --blue:#93C5FD; --warn-bg:#2A2410; --warn-line:#8A6D3B; --heading:#E2E8F0; --warn-ink:#E8C87A;
   }
 }
 /* Teal-text classes become muted text on dark (teal-as-text is banned). */
