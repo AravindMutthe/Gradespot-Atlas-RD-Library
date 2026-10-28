@@ -10,6 +10,7 @@ import Link from "next/link";
 import { ATLAS_V2_CHAPTERS, ATLAS_V2_RELEASE } from "@/lib/atlas-v2/chapters";
 import "./globals.css";
 import ThemeToggle from "@/components/atlas-v2/ThemeToggle";
+import HeaderSearch from "@/components/atlas-v2/HeaderSearch";
 
 export const metadata: Metadata = {
   title: "Aravind Systems Atlas",
@@ -82,13 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <NavItems />
           </nav>
           <ThemeToggle />
-          <form className="site-search" action="/search" method="get" role="search">
-            <label htmlFor="site-search" className="sr-only" style={{ position: "absolute", left: "-9999px" }}>
-              Search the Atlas
-            </label>
-            <input id="site-search" name="q" type="search" placeholder="Search the Atlas…" />
-            <button type="submit">Search</button>
-          </form>
+          <HeaderSearch />
         </header>
         <main className="site-main">
           {children}

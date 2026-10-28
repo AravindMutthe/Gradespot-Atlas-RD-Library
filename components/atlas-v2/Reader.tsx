@@ -3,12 +3,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { AtlasV2Chapter } from "@/lib/atlas-v2/chapters";
 import { displayTitle } from "@/lib/atlas-v2/display-title";
+import ChapterSearch from "./ChapterSearch";
 import styles from "./reader.module.css";
 
 export interface RelatedResolved { slug: string; title: string; proposedDomain: string; sourceDomain: string; evidence: string; }
 export interface ChapterLite { slug: string; title: string; proposedDomain: string; }
 
-function anchorId(text: string, i: number): string {
+export function anchorId(text: string, i: number): string {
   const s = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return s ? `sec-${s}` : `sec-${i}`;
 }
@@ -219,6 +220,7 @@ export default function Reader({ chapter, prev, next, related, all, proposedDoma
           <div className={styles.callout}>
             <strong>How to read this chapter.</strong> Paragraphs beginning “From the original pages” paraphrase the handwritten sources. Paragraphs beginning “Technical expansion and corrections” are editorial explanation, not manuscript text. In Explore &amp; Learn mode the editorial technical paragraphs sit inside “Technical depth” disclosures — expand them any time; nothing is hidden permanently. Technical Reference mode shows everything, including sources, diagrams and original evidence, without collapsing.
           </div>
+          <ChapterSearch chapter={chapter} />
           {chapter.blocks.map(renderBlock)}
           {chapter.diagrams.length > 0 ? extraSection("diagrams", "Diagrams", chapter.diagrams.map((g, i) => (
             <figure key={i}><figcaption><strong>{g.h2 || `Diagram ${i + 1}`}</strong>{g.source ? ` — source: ${g.source}` : ""}</figcaption><pre className={styles.diagram}>{g.text}</pre></figure>
