@@ -6,13 +6,17 @@ import {
   type ExplorerView,
 } from "@/lib/explorer-nic";
 import styles from "./explorer.module.css";
+import {
+  COMMAND_REVIEWS,
+  REVIEW_METHOD,
+} from "@/lib/explorer-nic-review";
 
 const BASE = process.env.ATLAS_BASE_URL ?? "https://aravind-systems-atlas.vercel.app";
 
 export const metadata: Metadata = {
   title: "System Explorer — Aravind Systems Atlas",
   description:
-    "A teaching instrument for one journey: from silicon to a working NIC. Three views — System Setup, Follow an HTTPS Request, Troubleshoot — with typed relationships, reviewed example commands, and a mandatory limitations panel.",
+    "A teaching instrument for one journey: from silicon to a working NIC. Three views — System Setup, HTTPS Request, Troubleshoot — with typed relationships, reviewed example commands, and a mandatory limitations panel.",
   alternates: { canonical: `${BASE}/system-explorer/` },
 };
 
@@ -204,6 +208,7 @@ function ViewNav({ current }: { current?: string }) {
         </Link>
       ))}
       <Link href="#limitations">Limitations</Link>
+      <Link href="#command-review">Command review</Link>
     </nav>
   );
 }
@@ -264,7 +269,7 @@ export default function SystemExplorerPage() {
               A technically reviewed explanation of a mechanism. Node
               mechanisms and example commands on this page carry this
               tier: each command was reviewed for correctness and safety
-              before publication.
+              before publication (see the command review table below).
             </p>
           </div>
           <div className="card">
@@ -339,7 +344,7 @@ export default function SystemExplorerPage() {
             command on this page was technically reviewed, but outputs
             vary by distribution, kernel, and privileges. All commands
             are read-only except ping (which sends ICMP echo requests)
-            and curl (which performs a real HTTPS request). Replace
+            and curl (which performs a real HTTPS request), and getent (which may query the configured resolver). Network-active commands are flagged beside each command, and the review table below records the evidence for every command. Replace
             placeholders such as <code>&lt;iface&gt;</code> with your
             own values, and never run a command you do not understand.
           </li>
@@ -355,6 +360,64 @@ export default function SystemExplorerPage() {
             lab, and not a simulator.
           </li>
         </ul>
+      </section>
+
+      <section
+        className="panel"
+        id="command-review"
+        aria-labelledby="command-review-heading"
+      >
+        <h2 id="command-review-heading">
+          Command review evidence — every published command
+        </h2>
+        <p>{REVIEW_METHOD}</p>
+        <p>
+          No live execution on a target host is claimed: this is a review
+          of command text, flags, placeholders, and stated expected
+          output against documented tool behavior — not a record of
+          observed runs.
+        </p>
+        <p>
+          15 distinct commands across 16 node slots (getent hosts
+          example.com appears in two nodes). Destructive-token scan: no
+          rm, mkfs, dd, iptables, ip link set, ip addr add/del, ip
+          route add/del, ethtool -s/-K, sysctl -w, systemctl, sudo,
+          redirection, or other write verb appears in any published
+          command. Network-active commands are flagged beside each
+          command above and in the Class column below.
+        </p>
+        <div className={styles.tableWrap}>
+          <table className={styles.edgeTable}>
+            <thead>
+              <tr>
+                <th scope="col">Command</th>
+                <th scope="col">Class</th>
+                <th scope="col">Used in</th>
+                <th scope="col">Review note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMMAND_REVIEWS.map((r) => (
+                <tr key={r.command}>
+                  <td>
+                    <code>{r.command}</code>
+                  </td>
+                  <td>
+                    <strong>{r.trafficClass}</strong>
+                  </td>
+                  <td>{r.nodes.join(", ")}</td>
+                  <td>{r.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>
+          A command is called &ldquo;reviewed&rdquo; on this page only
+          because it appears in this table with a recorded verdict. If a
+          command is ever added without a row here, the
+          &ldquo;reviewed&rdquo; claim must not be made for it.
+        </p>
       </section>
 
       {EXPLORER_VIEWS.map((view, vi) => (
@@ -388,6 +451,13 @@ export default function SystemExplorerPage() {
                       <strong>Safety: </strong>
                       {node.inspect.safety}
                     </p>
+                    {node.inspect.networkActive ? (
+                      <p>
+                        <strong>Network: </strong>
+                        NETWORK-ACTIVE — this command may send traffic; see
+                        the review table below.
+                      </p>
+                    ) : null}
                   </div>
                 ) : null}
                 <p>
@@ -413,6 +483,7 @@ export default function SystemExplorerPage() {
             labelled &ldquo;related&rdquo; is a weaker, non-causal
             association — never causation.
           </p>
+          <div className={styles.tableWrap}>
           <table className={styles.edgeTable}>
             <thead>
               <tr>
@@ -435,6 +506,7 @@ export default function SystemExplorerPage() {
               ))}
             </tbody>
           </table>
+        </div>
           <PrevNext index={vi} />
         </section>
       ))}

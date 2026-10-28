@@ -123,3 +123,7 @@
    mode; the caption uses fixed muted text for the same reason. */
 .svgWrap{background:#F7F8F6;border:1px solid var(--line);border-radius:12px;padding:12px}
 .svgWrap figcaption{color:#475569}
+
+.tableWrap {
+  overflow-x: auto;
+}

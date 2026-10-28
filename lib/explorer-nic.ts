@@ -25,6 +25,7 @@ export type InspectExample = {
   command: string;
   expected: string;
   safety: string;
+  networkActive?: boolean;
 };
 
 export type ExplorerNode = {
@@ -152,7 +153,7 @@ export const EXPLORER_VIEWS: ExplorerView[] = [
   },
   {
     id: "https",
-    title: "Follow an HTTPS Request",
+    title: "HTTPS Request",
     intro:
       "One worked example: a host sends an HTTPS request through the system. This is an outbound data path, not a historical timeline. The network card does not directly understand an HTTPS URL — the OS and applications perform different jobs, and every conditional step below runs only when its condition holds.",
     conditionalNote:
@@ -168,6 +169,7 @@ export const EXPLORER_VIEWS: ExplorerView[] = [
           command: "getent hosts example.com",
           expected: "Resolved IP addresses via the system resolver. On systemd systems, resolvectl query example.com shows the same lookup with its source.",
           safety: "Read-only; a lookup may query the configured resolver. A cached answer performs no network query at all.",
+          networkActive: true,
         },
         relatedChapters: [NIC],
         limitation:
@@ -303,6 +305,7 @@ export const EXPLORER_VIEWS: ExplorerView[] = [
           command: "getent hosts example.com",
           expected: "IP addresses for the name. No output means resolution failed for this name on this system.",
           safety: "Read-only; a lookup may query the configured resolver.",
+          networkActive: true,
         },
         relatedChapters: [NIC],
         limitation:
@@ -318,6 +321,7 @@ export const EXPLORER_VIEWS: ExplorerView[] = [
           command: "ping -c 3 <destination-ip>",
           expected: "Replies with round-trip times, or 100% packet loss.",
           safety: "Sends ICMP echo requests (harmless diagnostic traffic); makes no system changes. Prefer an IP address here so DNS is not part of the test.",
+          networkActive: true,
         },
         relatedChapters: [NIC],
         limitation:
@@ -333,6 +337,7 @@ export const EXPLORER_VIEWS: ExplorerView[] = [
           command: "curl -v --max-time 10 https://example.com",
           expected: "TLS handshake details, certificate information, then an HTTP status line.",
           safety: "Performs a real HTTPS request to a site you intend to visit; verbose output shows handshake metadata, never decrypted content. Use a real destination, not a placeholder.",
+          networkActive: true,
         },
         relatedChapters: [NIC],
         limitation:
