@@ -186,3 +186,21 @@ html[data-theme="dark"] .draft-note{color:#E8C87A}
   html:not([data-theme]) .theme-toggle{background:#1E3A56;border-color:var(--line)}
   html:not([data-theme]) .draft-note{color:#E8C87A}
 }
+
+/* B-1 (2026-10-28 completion): print-friendly rendering. Print block
+   only — no screen rule above is altered. Hides print chrome (site
+   header/nav, theme toggle, header search form, footer nav, skip link),
+   forces black-on-white, and expands collapsed <details> disclosures so
+   their content is not lost on paper. */
+@media print {
+  .skip-link, .site-header, .site-nav, .theme-toggle, .site-search,
+  .site-footer nav { display: none !important; }
+  body, .site-main { background: #fff !important; color: #000 !important; }
+  .site-main { max-width: none; padding: 0; }
+  a, h1, h2, h3, .site-footer { color: #000 !important; }
+  .hero, .card, .panel, .step, .beat-research, .orig-banner, .enhance,
+  .newdiagram, .verify { background: #fff !important; box-shadow: none !important; }
+  .flow-diagram rect { fill: #fff; }
+  .flow-diagram text { fill: #000; }
+  details > :not(summary) { display: block !important; }
+}

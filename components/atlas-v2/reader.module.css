@@ -56,3 +56,24 @@
 .drawer { position: fixed; inset: 0 auto 0 0; width: min(320px, 88vw); background: var(--surface); color: var(--ink); z-index: 50; overflow-y: auto; padding: 16px; box-shadow: 4px 0 24px rgba(0,0,0,.3); font-family: Inter, system-ui, sans-serif; }
 .drawer a { color: var(--blue); display: block; padding: 6px 0; overflow-wrap: anywhere; }
 .drawerBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 40; border: 0; width: 100%; }
+
+/* B-1 (2026-10-28 completion): print-friendly reader rendering. Print
+   block only — no screen rule above is altered. Hides reader chrome
+   (progress bar, topbar/drawer button, controls, side/TOC columns,
+   drawer, bookmark buttons), expands collapsed "Technical depth"
+   disclosures, forces black-on-white, and removes internal scroll
+   clipping from tables/diagrams. */
+@media print {
+  .progress, .progressText, .topbar, .controls, .sideCol, .tocCol,
+  .drawer, .drawerBackdrop, .drawerBtn, .bookmarkBtn { display: none !important; }
+  .layout { display: block; max-width: none; padding: 0; }
+  .wrap, .article { background: #fff !important; color: #000 !important; }
+  .article { max-width: none; }
+  .article h1, .article h2 { color: #000; }
+  .tableWrap, .diagram, .stepflow { overflow: visible !important; }
+  .tableWrap table { min-width: 0; }
+  .tableWrap th { background: #fff !important; color: #000 !important; }
+  .diagram { background: #fff !important; color: #000 !important; }
+  .details { background: #fff !important; }
+  .details > :not(summary) { display: block !important; }
+}
