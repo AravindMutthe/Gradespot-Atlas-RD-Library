@@ -93,3 +93,34 @@ h3{font-size:16px;margin:0 0 8px;color:var(--navy)}
   html{scroll-behavior:auto}
   *{animation:none!important;transition:none!important}
 }
+
+/* Phase 1 (Commit B): Journey-first homepage components. */
+.journey-rail{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 8px;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.journey-rail a{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;color:var(--navy);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;font-weight:600}
+.journey-rail a:hover{border-color:var(--teal)}
+.beat{border-top:2px solid var(--teal);margin-top:34px;padding-top:10px}
+.beat:target{outline:3px solid var(--blue);outline-offset:6px}
+.beat-chapter{font-size:15px;color:var(--muted)}
+.beat-chapter a{color:var(--blue)}
+.beat-excerpt{font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.7}
+.beat-related{margin:14px 0}
+.beat-research{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:16px 0;background:var(--surface)}
+.beat-research summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+.beat-diagram{margin:20px 0}
+.flow-diagram{width:100%;height:auto;display:block}
+.flow-diagram rect{fill:var(--surface);stroke:var(--teal);stroke-width:1.5}
+.flow-diagram text{fill:var(--ink);font-size:13px;font-family:Inter,system-ui,sans-serif}
+.flow-diagram line{stroke:var(--teal);stroke-width:1.5}
+.flow-diagram polygon{fill:var(--teal)}
+.flow-diagram .lane-caption{fill:var(--muted);font-size:12px}
+.diagram-layers{margin:12px 0}
+.diagram-layers div{display:grid;grid-template-columns:110px 1fr;gap:12px;margin:8px 0}
+.diagram-layers dt{font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--teal)}
+.diagram-layers dd{margin:0;font-size:14px}
+.source-context{font-size:13px;color:var(--muted)}
+.desk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.desk-grid .panel{margin:0}
+.archive-status{border-top:2px solid var(--navy);margin-top:34px;padding-top:10px}
+@media(max-width:520px){
+  .diagram-layers div{grid-template-columns:1fr}
+}
