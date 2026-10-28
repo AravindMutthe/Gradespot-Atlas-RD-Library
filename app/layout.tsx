@@ -11,19 +11,47 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5 };
 
-// Single global navigation (DES-03). System Explorer is listed from Step 3,
-// when its /system-explorer route actually exists and passes verification;
-// planned features must not appear as functional destinations before they
-// exist. The legacy V1 sidebar is retired with this layout.
-const NAV: { href: string; label: string }[] = [
-  { href: "/explore", label: "Explore" },
-  { href: "/system-explorer", label: "System Explorer" },
+// Converged global navigation (blueprint §4.5, D-02 delegated decision).
+// One stable model on every page: Library · Learning Paths · Timelines ·
+// Diagrams · Explorer · Sources-gated-label. "Sources" is a gated label
+// (plain text, not a link) per D-03 — the Sources route is NOT emitted in
+// initial v2.0 scope. Explorer lives only at /system-explorer (G-03).
+// Labs and AI do NOT appear as destinations, not even as disabled items.
+// About is reachable from the footer (it carries the release honesty
+// position) rather than the header model; Search is reachable from the
+// header search form on every page. The legacy V1 sidebar stays retired.
+type NavItem = { href?: string; label: string; gated?: boolean };
+
+const NAV: NavItem[] = [
   { href: "/library", label: "Library" },
   { href: "/learning-paths", label: "Learning Paths" },
-  { href: "/search", label: "Search" },
-  { href: "/sources", label: "Sources" },
-  { href: "/about", label: "About" },
+  { href: "/timelines", label: "Timelines" },
+  { href: "/diagrams", label: "Diagrams" },
+  { href: "/system-explorer", label: "Explorer" },
+  { label: "Sources", gated: true },
 ];
+
+function NavItems() {
+  return (
+    <>
+      {NAV.map((item) =>
+        item.gated ? (
+          <span
+            key={item.label}
+            className="nav-gated"
+            title="Sources route is gated — not published in initial v2.0 scope"
+          >
+            Sources <span className="gated-tag">gated</span>
+          </span>
+        ) : (
+          <Link key={item.href} href={item.href as string}>
+            {item.label}
+          </Link>
+        ),
+      )}
+    </>
+  );
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const diagrams = ATLAS_V2_CHAPTERS.reduce((n, c) => n + c.diagrams.length, 0);
@@ -37,11 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <small>Knowledge Hub</small>
           </Link>
           <nav className="site-nav" aria-label="Global">
-            {NAV.map((item) => (
-              <Link key={item.href} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
+            <NavItems />
           </nav>
           <form className="site-search" action="/search" method="get" role="search">
             <label htmlFor="site-search" className="sr-only" style={{ position: "absolute", left: "-9999px" }}>
@@ -58,12 +82,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {ATLAS_V2_RELEASE.version} · {ATLAS_V2_CHAPTERS.length} chapters · 136 unique images ·{" "}
             {diagrams} diagrams · {tables} tables
             <nav aria-label="Footer">
-              {NAV.map((item) => (
-                <Link key={item.href} href={item.href}>
-                  {item.label}
-                </Link>
-              ))}
+              <NavItems />
               <Link href="/">Home</Link>
+              <Link href="/about">About</Link>
             </nav>
           </footer>
         </main>
